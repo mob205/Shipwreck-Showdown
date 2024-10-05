@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,6 +13,10 @@ public class FollowCamera : MonoBehaviour
     {
         _player = PlayerController.LocalController;
         _startZ = transform.position.z;
+        if(NetworkServer.active)
+        {
+            Destroy(gameObject); // don't need server in network server
+        }
     }
 
     private void Update()
@@ -23,7 +28,6 @@ public class FollowCamera : MonoBehaviour
         }
         else
         {
-            Debug.Log("Null :(");
             _player = PlayerController.LocalController;
         }
     }
