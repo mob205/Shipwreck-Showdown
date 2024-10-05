@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
+using Mirror.BouncyCastle.Tls;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -11,6 +13,7 @@ public class PlayerMovement : MonoBehaviour, IControllable
     [SerializeField] private float _maxSpeed;
 
     [field: SerializeField] public Transform CameraAngle { get; private set; }
+    public GameObject Object { get { return gameObject; } }
 
     private Vector2 _frameVelocity;
     private Vector2 _frameInput;
@@ -23,7 +26,6 @@ public class PlayerMovement : MonoBehaviour, IControllable
 
     private void FixedUpdate()
     {
-        _rb.velocity = _frameVelocity;
         if (_frameInput == Vector2.zero)
         {
             _frameVelocity = Vector2.MoveTowards(_frameVelocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
@@ -32,6 +34,11 @@ public class PlayerMovement : MonoBehaviour, IControllable
         {
             _frameVelocity = Vector2.MoveTowards(_frameVelocity, _frameInput * _maxSpeed, _acceleration * Time.fixedDeltaTime);
         }
+        _rb.velocity = _frameVelocity;
+    }
+    public void OnReleaseControl()
+    {
+        _frameInput = Vector2.zero;
     }
 
     public void Fire()
