@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     {
         _defaultControllable = GetComponent<IControllable>();
         _curControllable = _defaultControllable;
+        Debug.Log($"{_curControllable}, {_defaultControllable}");
     }
     public void OnMove(InputAction.CallbackContext context)
     {
