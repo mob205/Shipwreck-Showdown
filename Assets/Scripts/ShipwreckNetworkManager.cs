@@ -8,6 +8,7 @@ public class ShipwreckNetworkManager : NetworkManager
 {
     public static event Action<NetworkIdentity> OnPlayerConnect;
     public static event Action<NetworkIdentity> OnPlayerDisconnect;
+    public static event Action OnServerStarted;
 
     public static ShipwreckNetworkManager Instance;
     public override void Awake()
@@ -29,5 +30,19 @@ public class ShipwreckNetworkManager : NetworkManager
     {
         OnPlayerDisconnect?.Invoke(conn.identity);
         base.OnServerDisconnect(conn);
+    }
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        OnServerStarted?.Invoke();
+    }
+
+    [Server]
+    public void ReloadScene()
+    {
+        ServerChangeScene(onlineScene);
+
+        OnPlayerConnect = null;
+        OnPlayerDisconnect = null;
     }
 }

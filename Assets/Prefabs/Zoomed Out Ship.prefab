@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 1623636154047973977}
   - component: {fileID: 8858208004756143938}
   - component: {fileID: 8057341956751512553}
+  - component: {fileID: 2400294287923462438}
   m_Layer: 0
   m_Name: Zoomed Out Ship
   m_TagString: Untagged
@@ -174,9 +175,9 @@ MonoBehaviour:
   syncPosition: 1
   syncRotation: 1
   syncScale: 0
-  onlySyncOnChange: 1
+  onlySyncOnChange: 0
   compressRotation: 1
-  interpolatePosition: 1
+  interpolatePosition: 0
   interpolateRotation: 1
   interpolateScale: 0
   coordinateSpace: 0
@@ -221,6 +222,7 @@ MonoBehaviour:
   _acceleration: 250
   _maxSpeed: 5
   _turnRate: 45
+  _transform: {fileID: 0}
   <CameraAngle>k__BackingField: {fileID: 0}
 --- !u!114 &8057341956751512553
 MonoBehaviour:
@@ -236,6 +238,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _front: {fileID: 5954238993243976586}
   _back: {fileID: 8638801505872037670}
+--- !u!114 &2400294287923462438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165136494015822132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c264c1e5a4350e408db54774b22436e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  <MaxHealth>k__BackingField: 0
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2686226063819066112
 GameObject:
   m_ObjectHideFlags: 0
