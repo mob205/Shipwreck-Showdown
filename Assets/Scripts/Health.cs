@@ -12,6 +12,11 @@ public class Health : NetworkBehaviour
 
     public UnityEvent<Health, int> OnDamage;
 
+    public override void OnStartServer()
+    {
+        CurrentHealth = MaxHealth;
+    }
+
     [Server]
     public void ModifyHealth(int amount)
     {
