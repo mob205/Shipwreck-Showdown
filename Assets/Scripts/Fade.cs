@@ -24,7 +24,7 @@ public class Fade : MonoBehaviour
         if (timer < FadeDuration)
         {
             timer += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 1f, timer / FadeDuration); 
+            float alpha = Mathf.Lerp(0f, 0.5f, timer / FadeDuration); 
             Panel.color = new Color(Panel.color.r, Panel.color.g, Panel.color.b, alpha);
         }
     }
