@@ -140,10 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a366e834ebe161d47bb8810571415f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deceleration: 0
-  _acceleration: 0
-  _maxSpeed: 0
-  <CameraAngle>k__BackingField: {fileID: 0}
+  _deceleration: 250
+  _acceleration: 250
+  _maxSpeed: 5
+  <CameraAngle>k__BackingField: {fileID: 7309223250256450129}
 --- !u!212 &5856277181286010209
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -185,8 +185,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.8037735, g: 0.10160909, b: 0.10160909, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

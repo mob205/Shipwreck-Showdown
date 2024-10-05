@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour, IControllable
     [SerializeField] private float _maxSpeed;
 
     [field: SerializeField] public Transform CameraAngle { get; private set; }
+    public GameObject Object { get { return gameObject; } }
 
     private Vector2 _frameVelocity;
     private Vector2 _frameInput;
