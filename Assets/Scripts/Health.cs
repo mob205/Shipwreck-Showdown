@@ -4,16 +4,22 @@ using UnityEngine.Events;
 
 public class Health : NetworkBehaviour
 {
-    [field: SerializeField] public float MaxHealth { get; private set; }
+    [field: SerializeField] public int MaxHealth { get; private set; }
 
-    [field: SyncVar] public float CurrentHealth { get; private set; }
+    [field: SyncVar] public int CurrentHealth { get; private set; }
 
     public UnityEvent<Health> OnDeath;
 
+    public UnityEvent<Health, int> OnDamage;
+
     [Server]
-    public void ModifyHealth(float amount)
+    public void ModifyHealth(int amount)
     {
-        CurrentHealth -= amount;
+        CurrentHealth += amount;
+        if(amount < 0)
+        {
+            OnDamage?.Invoke(this, amount);
+        }
         if(CurrentHealth <= 0)
         {
             StartDeath();
