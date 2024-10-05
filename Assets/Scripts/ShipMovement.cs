@@ -9,6 +9,8 @@ public class ShipMovement : MonoBehaviour, IControllable
     [SerializeField] private float _turnRate;
 
     [field: SerializeField] public Transform CameraAngle { get; private set; }
+    public bool RequiresAuthority { get; } = true;
+
     public GameObject Object { get { return gameObject; } }
 
     private Vector2 _frameVelocity;

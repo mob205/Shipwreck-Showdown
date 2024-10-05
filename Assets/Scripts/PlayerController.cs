@@ -50,7 +50,11 @@ public class PlayerController : NetworkBehaviour
         if (_usedInteractor) // Already possessed, so unpossess
         {
             _usedInteractor.IsCurrentlyControlled = false;
-            _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+
+            if(_usedInteractor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
+            {
+                _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+            }
             _usedInteractor = null;
             TargetResetControllable(conn);
             return;
@@ -65,7 +69,11 @@ public class PlayerController : NetworkBehaviour
         {
             if (interactor.IsCurrentlyControlled == false)
             {
-                interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+                if (interactor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
+                {
+                    interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+                }
+
                 interactor.IsCurrentlyControlled = true;
                 _usedInteractor = interactor;
                 TargetSwitchControllable(conn, interactor.netId);
