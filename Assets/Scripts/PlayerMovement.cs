@@ -1,16 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using Mirror.BouncyCastle.Tls;
 using UnityEngine;
-using UnityEngine.Windows;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovement : MonoBehaviour, IControllable
+public class PlayerMovement : NetworkBehaviour, IControllable
 {
+    [Header("Combat")]
+    [SerializeField] private LayerMask _enemyLayer;
+    [SerializeField] private float _attackRange;
+    [SerializeField] private int _damage;
+    [SerializeField] private float _fireRate;
+   
+    [Header("Movement")]
     [SerializeField] private float _deceleration;
     [SerializeField] private float _acceleration;
     [SerializeField] private float _maxSpeed;
+
+    private bool _canFire = true;
 
     [field: SerializeField] public Transform CameraAngle { get; private set; }
 
@@ -45,8 +50,43 @@ public class PlayerMovement : MonoBehaviour, IControllable
 
     public void Fire()
     {
-        // Player attack
+        CmdFire();
     }
+
+    [Command]
+    private void CmdFire()
+    {
+        if(!_canFire) { return; }
+        ProcessAttackDamage();
+        _canFire = false;
+        Invoke(nameof(EnableFire), 1f / _fireRate);
+    }
+
+    [Server]
+    private void EnableFire()
+    {
+        _canFire = true;
+    }
+
+    [Server]
+    private void ProcessAttackDamage()
+    {
+        Debug.Log("Attacking");
+        var enemy = Physics2D.OverlapCircle(transform.position, _attackRange, _enemyLayer);
+        if (enemy)
+        {
+            Debug.Log("Found an enemy and hit them");
+            enemy.GetComponent<Health>().ModifyHealth(-_damage);
+        }
+    }
+
+
+    [ClientRpc]
+    private void RpcSwingWeapon()
+    {
+        Debug.Log("Swing");
+    }
+
 
     public void Move(Vector2 input)
     {
