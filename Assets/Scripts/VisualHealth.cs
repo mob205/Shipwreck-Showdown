@@ -3,50 +3,72 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class VisualHealth : MonoBehaviour
 {
+    private PlayerController controller;
+
+    private Health playerHealth;
 
     public Sprite filledHeart, unfilledHeart;
-    Image heartImage;
+    public Image[] hearts;
 
     private void Awake() 
     {
 
-        heartImage = GetComponent<Image>();
-        
-    }
-
-    public void SetImage(HeartStats stats)
-    {
-
-        switch (stats)
+        if (hearts == null || hearts.Length == 0)
         {
-
-            case HeartStats.Empty:
-                heartImage.sprite = unfilledHeart;
-                break;
-            case HeartStats.Full:
-                heartImage.sprite = filledHeart;
-                break;
-
+            Debug.LogError("feet");
         }
         
     }
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+
+    }
+
+    public void SetImage(int currentHealth, int maxHealth)
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                hearts[i].sprite = filledHeart;
+            }
+            else
+            {
+                hearts[i].sprite = unfilledHeart;
+            }
+        }
+    }
+
+    public void TakeDamage(Health health, int amount)
+    {
+
+        SetImage(health.CurrentHealth, health.MaxHealth);
+
+    }
+
+    private void Update() 
+    {
+
+        if(controller == null)
+        {
+
+            controller = PlayerController.LocalController;
+            if(!controller) { return; }
+            playerHealth = controller.GetComponent<Health>();
+
+            playerHealth.OnDamage.AddListener((health, amount) => TakeDamage(health, amount));
+
+        }
+
+        SetImage(playerHealth.CurrentHealth, playerHealth.MaxHealth);
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
 public enum HeartStats

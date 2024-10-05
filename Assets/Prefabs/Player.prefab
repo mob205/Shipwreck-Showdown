@@ -297,8 +297,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  <MaxHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 3
   OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamage:
     m_PersistentCalls:
       m_Calls: []
 --- !u!61 &-5572052701017673972
