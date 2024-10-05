@@ -44,7 +44,7 @@ public class VisualHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Health health, int amount)
+    public void TakeDamage(Health health, int amount, GameObject attacker)
     {
 
         SetImage(health.CurrentHealth, health.MaxHealth);
@@ -61,7 +61,7 @@ public class VisualHealth : MonoBehaviour
             if(!controller) { return; }
             playerHealth = controller.GetComponent<Health>();
 
-            playerHealth.OnDamage.AddListener((health, amount) => TakeDamage(health, amount));
+            playerHealth.OnDamage.AddListener((health, amount, attacker) => TakeDamage(health, amount, attacker));
 
         }
 

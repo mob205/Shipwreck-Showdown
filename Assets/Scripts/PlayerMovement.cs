@@ -71,12 +71,10 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     [Server]
     private void ProcessAttackDamage()
     {
-        Debug.Log("Attacking");
         var enemy = Physics2D.OverlapCircle(transform.position, _attackRange, _enemyLayer);
         if (enemy)
         {
-            Debug.Log("Found an enemy and hit them");
-            enemy.GetComponent<Health>().ModifyHealth(-_damage);
+            enemy.GetComponent<Health>().ModifyHealth(-_damage, gameObject);
         }
     }
 
