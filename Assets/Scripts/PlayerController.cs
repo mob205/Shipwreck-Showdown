@@ -8,11 +8,14 @@ public class PlayerController : NetworkBehaviour
 
     [SerializeField] private float _interactRange;
     [SerializeField] private LayerMask _interactable;
+    [SerializeField] private LayerMask _cannonballPickup;
 
     public IControllable CurrentControllable { get; private set; }
 
     private IControllable _defaultControllable;
     private ControlInteractor _usedInteractor;
+
+    [SyncVar] private bool _hasCannonball;
 
     private void Awake()
     {
@@ -49,6 +52,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (_usedInteractor) // Already possessed, so unpossess
         {
+            Debug.Log("Unpossess");
             _usedInteractor.IsCurrentlyControlled = false;
 
             if(_usedInteractor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
@@ -60,15 +64,31 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
-        // Not currently possessing something
+        // Check if trying to pick up a cannon
+        if(!_hasCannonball && Physics2D.OverlapCircle(transform.position, _interactRange, _cannonballPickup))
+        {
+            Debug.Log("Pick up cannonball");
+            _hasCannonball = true;
+            return;
+        }
 
+        // Not currently possessing something
         var nearby = Physics2D.OverlapCircleAll(transform.position, _interactRange, _interactable);
         var closest = GetClosestCollider(nearby);
 
         if (closest != null && closest.TryGetComponent(out ControlInteractor interactor))
         {
+            if (_hasCannonball && interactor.BoundControllable.TryGetComponent(out CannonMovement cannon))
+            {
+                Debug.Log("Load cannonball");
+                _hasCannonball = false;
+                cannon.LoadCannon();
+                return;
+            }
+
             if (interactor.IsCurrentlyControlled == false)
             {
+                Debug.Log("Possess");
                 if (interactor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
                 {
                     interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);

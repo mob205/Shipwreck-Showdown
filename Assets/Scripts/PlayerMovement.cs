@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour, IControllable
 
     public void Fire()
     {
-        Debug.Log("Swinging sword");
+        // Player attack
     }
 
     public void Move(Vector2 input)

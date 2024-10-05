@@ -71,6 +71,11 @@ public class CannonMovement : NetworkBehaviour, IControllable
             ShootCannon();
         }
     }
+    
+    public void LoadCannon()
+    {
+        ++_numCannonballsLoaded;
+    }
 
     private void ShootCannon()
     {
