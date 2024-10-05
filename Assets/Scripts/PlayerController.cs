@@ -19,7 +19,11 @@ public class PlayerController : NetworkBehaviour
         _defaultControllable = GetComponent<IControllable>();
         CurrentControllable = _defaultControllable;
     }
-
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
+        GetComponent<PlayerInput>().enabled = true;
+    }
     public override void OnStartClient()
     {
         if (!netIdentity.isLocalPlayer)
