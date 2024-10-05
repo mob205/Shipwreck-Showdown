@@ -65,7 +65,6 @@ public class PlayerController : NetworkBehaviour
         {
             if (interactor.IsCurrentlyControlled == false)
             {
-                Debug.Log($"Interactor found: {interactor.netId}, {interactor.name}");
                 interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
                 interactor.IsCurrentlyControlled = true;
                 _usedInteractor = interactor;
@@ -77,7 +76,6 @@ public class PlayerController : NetworkBehaviour
     [TargetRpc]
     public void TargetSwitchControllable(NetworkConnectionToClient conn, uint controlInteractId)
     {
-        Debug.Log($"About to look for {controlInteractId}");
         CurrentControllable.OnReleaseControl();
         CurrentControllable = ControlInteractor.Interactors[controlInteractId].BoundControllable.GetComponent<IControllable>();
     }
