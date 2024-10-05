@@ -48,19 +48,25 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    [Server]
+    public void Unpossess()
+    {
+        if (!_usedInteractor) { return; }
+        _usedInteractor.IsCurrentlyControlled = false;
+
+        if (_usedInteractor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
+        {
+            _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+        }
+        _usedInteractor = null;
+        IsCaptain = false;
+    }
     [Command]
     public void CmdTryPossess(NetworkConnectionToClient conn = null)
     {
         if (_usedInteractor) // Already possessed, so unpossess
         {
-            _usedInteractor.IsCurrentlyControlled = false;
-
-            if(_usedInteractor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
-            {
-                _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
-            }
-            _usedInteractor = null;
-            IsCaptain = false;
+            Unpossess();
             TargetResetControllable(conn);
             return;
         }
@@ -132,7 +138,6 @@ public class PlayerController : NetworkBehaviour
                 closestDist = dist;
             }
         }
-
         return best;
     }
 }

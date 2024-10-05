@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 8522066746426960616}
   - component: {fileID: -16787010210059454}
   - component: {fileID: 5998601238471438741}
-  m_Layer: 0
+  - component: {fileID: -1885111172144196962}
+  m_Layer: 7
   m_Name: Goon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,3 +227,25 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &-1885111172144196962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2229041110476019148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c264c1e5a4350e408db54774b22436e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  <MaxHealth>k__BackingField: 3
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []

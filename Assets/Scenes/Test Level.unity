@@ -372,6 +372,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goon (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2229041110476019148, guid: 4a11c4a497d2f497f93373d4118517a4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8581777286133214089, guid: 4a11c4a497d2f497f93373d4118517a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5289035
