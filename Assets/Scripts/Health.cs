@@ -10,7 +10,7 @@ public class Health : NetworkBehaviour
 
     public UnityEvent<Health> OnDeath;
 
-    public UnityEvent<Health, int> OnDamage;
+    public UnityEvent<Health, int, GameObject> OnDamage;
 
     public override void OnStartServer()
     {
@@ -18,12 +18,12 @@ public class Health : NetworkBehaviour
     }
 
     [Server]
-    public void ModifyHealth(int amount)
+    public void ModifyHealth(int amount, GameObject attacker)
     {
         CurrentHealth += amount;
         if(amount < 0)
         {
-            OnDamage?.Invoke(this, amount);
+            OnDamage?.Invoke(this, amount, attacker);
         }
         if(CurrentHealth <= 0)
         {

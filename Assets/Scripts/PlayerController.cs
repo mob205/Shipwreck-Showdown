@@ -56,8 +56,15 @@ public class PlayerController : NetworkBehaviour
 
         if (_usedInteractor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
         {
-            _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+            _usedInteractor.BoundControllable.GetComponent<IControllable>().OnReleaseControl();
         }
+
+        //if(_usedInteractor.BoundControllable.TryGetComponent(out NetworkTransformReliable networkTransform))
+        //{
+        //    networkTransform.interpolatePosition = false;
+        //}
+
+        _usedInteractor.Unpossess();
         _usedInteractor = null;
         IsCaptain = false;
     }
@@ -95,6 +102,7 @@ public class PlayerController : NetworkBehaviour
             {
                 if (interactor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
                 {
+                    interactor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
                     interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
                 }
 
@@ -103,8 +111,17 @@ public class PlayerController : NetworkBehaviour
                     IsCaptain = true;
                 }
 
+                //if (_usedInteractor.BoundControllable.TryGetComponent(out NetworkTransformReliable networkTransform))
+                //{
+                //    networkTransform.interpolatePosition = true;
+                //}
+
                 interactor.IsCurrentlyControlled = true;
                 _usedInteractor = interactor;
+
+                _usedInteractor.Possess(this);
+                
+
                 TargetSwitchControllable(conn, interactor.netId);
             }
         }

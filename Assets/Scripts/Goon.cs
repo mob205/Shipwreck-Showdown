@@ -4,8 +4,10 @@ using Mirror;
 public class Goon : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private int damage;
+
     private Rigidbody2D _rb;
     private PlayerController _targetPlayer;
+    private Health _health;
 
     [SerializeField] private float damageCooldown = 1f; 
     private float damageTimer = 0f;
@@ -13,23 +15,49 @@ public class Goon : MonoBehaviour {
     // Function to initialize the enemy
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Function to update the enemy
-    private void Update() {
-        FindTargetPlayer();
-        MoveTowardsTarget();
-
-        if (damageTimer > 0) {
-            damageTimer -= Time.deltaTime;
-        }
+        _health = GetComponent<Health>();
     }
 
     private void Start()
     {
-        if(!NetworkServer.active)
+        if (!NetworkServer.active)
         {
             Destroy(this);
+            return;
+        }
+        _health.OnDamage.AddListener(OnDamage);
+        _health.OnDeath.AddListener(OnDeath);
+
+        ControlInteractor.OnPossessed.AddListener(OnNearbyPossession);
+    }
+    private void OnNearbyPossession(ControlInteractor interactor)
+    {
+        _targetPlayer = interactor.BoundController;
+    }
+    private void OnDeath(Health health)
+    {
+        ControlInteractor.OnPossessed.RemoveListener(OnNearbyPossession);
+    }
+    private void OnDamage(Health health, int amount, GameObject attacker)
+    {
+        if(attacker.TryGetComponent(out PlayerController player))
+        {
+            _targetPlayer = player;
+        }
+    }
+
+    // Function to update the enemy
+    private void Update() {
+        // Only retarget to the closest non-captain player if there's not already a target
+        if(_targetPlayer == null)
+        {
+            FindTargetPlayer();
+        }
+        
+        MoveTowardsTarget();
+
+        if (damageTimer > 0) {
+            damageTimer -= Time.deltaTime;
         }
     }
 
@@ -81,7 +109,7 @@ public class Goon : MonoBehaviour {
         if (other.gameObject.tag == "Player" && NetworkServer.active) {
             if (damageTimer <= 0) 
             {
-                other.gameObject.GetComponent<Health>().ModifyHealth(-damage);
+                other.gameObject.GetComponent<Health>().ModifyHealth(-damage, gameObject);
                 
                 damageTimer = damageCooldown;
             }

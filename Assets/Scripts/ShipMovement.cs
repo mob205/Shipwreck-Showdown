@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -7,6 +8,8 @@ public class ShipMovement : MonoBehaviour, IControllable
     [SerializeField] private float _acceleration;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _turnRate;
+
+    [SerializeField] private NetworkTransformReliable _transform;
 
     [field: SerializeField] public Transform CameraAngle { get; private set; }
     public bool RequiresAuthority { get; } = true;
@@ -37,6 +40,7 @@ public class ShipMovement : MonoBehaviour, IControllable
         // negate input to make the positive input, which is to the right, correspond to a right (CW) rotation
         _rb.angularVelocity = -_frameInput.x * _turnRate/* * Mathf.Sign(_frameInput.y)*/; // Uncomment sign to have car-like reverse steering
     }
+
     public void Fire()
     {
         // nothing 
@@ -46,7 +50,6 @@ public class ShipMovement : MonoBehaviour, IControllable
     {
         _frameInput = input;
     }
-
     public void OnReleaseControl()
     {
         _frameInput = Vector2.zero;
