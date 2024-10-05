@@ -1,17 +1,24 @@
 using Mirror;
 using UnityEngine;
 
-public class CannonMovement : NetworkBehaviour
+public class CannonMovement : NetworkBehaviour, IControllable
 {
-    // Start is called before the first frame update
-    void Start()
+    [field: SerializeField] public Transform CameraAngle { get; private set; }
+
+    public GameObject Object => throw new System.NotImplementedException();
+
+    public void Fire()
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Move(Vector2 input)
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    public void OnReleaseControl()
+    {
+        throw new System.NotImplementedException();
     }
 }
