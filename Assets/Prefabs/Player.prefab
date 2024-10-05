@@ -59,6 +59,9 @@ MonoBehaviour:
   _interactable:
     serializedVersion: 2
     m_Bits: 8
+  _cannonballPickup:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &6270317531912792441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +107,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7743741246906849173}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnMove
+        m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

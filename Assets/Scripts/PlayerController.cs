@@ -8,11 +8,15 @@ public class PlayerController : NetworkBehaviour
 
     [SerializeField] private float _interactRange;
     [SerializeField] private LayerMask _interactable;
+    [SerializeField] private LayerMask _cannonballPickup;
 
+    public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
 
     private IControllable _defaultControllable;
     private ControlInteractor _usedInteractor;
+
+    [SyncVar] private bool _hasCannonball;
 
     private void Awake()
     {
@@ -56,22 +60,41 @@ public class PlayerController : NetworkBehaviour
                 _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
             }
             _usedInteractor = null;
+            IsCaptain = false;
             TargetResetControllable(conn);
             return;
         }
 
-        // Not currently possessing something
+        // Check if trying to pick up a cannon
+        if(!_hasCannonball && Physics2D.OverlapCircle(transform.position, _interactRange, _cannonballPickup))
+        {
+            _hasCannonball = true;
+            return;
+        }
 
+        // Not currently possessing something
         var nearby = Physics2D.OverlapCircleAll(transform.position, _interactRange, _interactable);
         var closest = GetClosestCollider(nearby);
 
         if (closest != null && closest.TryGetComponent(out ControlInteractor interactor))
         {
+            if (_hasCannonball && interactor.BoundControllable.TryGetComponent(out CannonMovement cannon))
+            {
+                _hasCannonball = false;
+                cannon.LoadCannon();
+                return;
+            }
+
             if (interactor.IsCurrentlyControlled == false)
             {
                 if (interactor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
                 {
                     interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+                }
+
+                if(interactor.BoundControllable.GetComponent<ShipMovement>())
+                {
+                    IsCaptain = true;
                 }
 
                 interactor.IsCurrentlyControlled = true;

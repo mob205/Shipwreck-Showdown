@@ -5,8 +5,7 @@ public class Goon : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private int damage;
     private Rigidbody2D _rb;
-    private PlayerMovement _targetPlayer;
-    private BoxCollider2D _collider;
+    private PlayerController _targetPlayer;
 
     [SerializeField] private float damageCooldown = 1f; 
     private float damageTimer = 0f;
@@ -26,15 +25,24 @@ public class Goon : MonoBehaviour {
         }
     }
 
+    private void Start()
+    {
+        if(!NetworkServer.active)
+        {
+            Destroy(this);
+        }
+    }
+
     // Function to find the target player
     private void FindTargetPlayer() {
-        PlayerMovement[] players = GameObject.FindObjectsOfType<PlayerMovement>();
+        PlayerController[] players = FindObjectsOfType<PlayerController>();
 
         // TODO: Implement checking if any player is the captain
         // Loop through all players to find the captain
         foreach (var player in players) {
             // TODO: Replace 'player.isCaptain' with the actual property
-            if (/* player.isCaptain */ false) /* Placeholder condition */ {
+            if (player.IsCaptain)
+            {
                 _targetPlayer = player;
                 return;
             }
@@ -42,14 +50,13 @@ public class Goon : MonoBehaviour {
 
         // If no captain is found, find the closest player
         float closestDistance = Mathf.Infinity;
+
         foreach (var player in players) {
             float distance = Vector2.Distance(transform.position, player.transform.position);
             if (distance < closestDistance) 
             {
-
                 closestDistance = distance;
                 _targetPlayer = player;
-
             }
         }
     }
@@ -70,19 +77,13 @@ public class Goon : MonoBehaviour {
     }
     
     // Function to check if the enemy is colliding with the player
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnCollisionStay2D(Collision2D other) {
         if (other.gameObject.tag == "Player" && NetworkServer.active) {
-            Debug.Log("Damage Timer reset to: " + damageTimer);
-
             if (damageTimer <= 0) 
             {
-
                 other.gameObject.GetComponent<Health>().ModifyHealth(-damage);
-                Debug.Log("Damage applied: " + damage); 
                 
                 damageTimer = damageCooldown;
-                Debug.Log("Damage Timer reset to: " + damageTimer); 
-
             }
             
         }

@@ -7,7 +7,6 @@ public class CannonMovement : NetworkBehaviour, IControllable
     [SerializeField] private Transform _bulletSpawn;
     [SerializeField] private Projectile _cannonPrefab;
     [SerializeField] private int _damage;
-    [SerializeField] private float _fireRate;
     [SerializeField] private float _projectileSpeed;
 
     [Header("Cannon controls")]
@@ -15,7 +14,7 @@ public class CannonMovement : NetworkBehaviour, IControllable
     [SerializeField] float _turnRate;
     [SerializeField] private float _angleClamp = 30;
 
-    bool _canFire = true;
+    private int _numCannonballsLoaded = 0;
 
     [field: SerializeField] public bool RequiresAuthority { get; } = false;
     [field: SerializeField] public Transform CameraAngle { get; private set; }
@@ -54,18 +53,35 @@ public class CannonMovement : NetworkBehaviour, IControllable
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdFire()
+    private void CmdFire()
     {
-        if(!_canFire) { return; }
+        if(_numCannonballsLoaded <= 0) { return; }
+        --_numCannonballsLoaded;
+
         ShootCannon();
-        
+        RpcSimulateFire();
+    }
+
+    [ClientRpc]
+    private void RpcSimulateFire()
+    {
+        // Filter out hosts
+        if(!NetworkServer.active)
+        {
+            ShootCannon();
+        }
+    }
+    
+    public void LoadCannon()
+    {
+        ++_numCannonballsLoaded;
     }
 
     private void ShootCannon()
     {
         var cannonball = Instantiate(_cannonPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
         cannonball.Damage = _damage;
-        cannonball.GetComponent<Rigidbody2D>().velocity = _bulletSpawn.forward * _projectileSpeed;
+        cannonball.GetComponent<Rigidbody2D>().velocity = _bulletSpawn.right * _projectileSpeed;
     }
 
     public void Move(Vector2 input)
