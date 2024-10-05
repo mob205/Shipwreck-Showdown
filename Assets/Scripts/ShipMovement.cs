@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using Mirror;
-using Mirror.BouncyCastle.Tls;
 using UnityEngine;
-using UnityEngine.Windows;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovement : MonoBehaviour, IControllable
+public class ShipMovement : MonoBehaviour, IControllable
 {
     [SerializeField] private float _deceleration;
     [SerializeField] private float _acceleration;
     [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _turnRate;
 
     [field: SerializeField] public Transform CameraAngle { get; private set; }
     public GameObject Object { get { return gameObject; } }
@@ -34,20 +30,23 @@ public class PlayerMovement : MonoBehaviour, IControllable
         {
             _frameVelocity = Vector2.MoveTowards(_frameVelocity, _frameInput * _maxSpeed, _acceleration * Time.fixedDeltaTime);
         }
-        _rb.velocity = _frameVelocity;
-    }
-    public void OnReleaseControl()
-    {
-        _frameInput = Vector2.zero;
-    }
+        _rb.velocity = transform.rotation * new Vector3(_frameVelocity.y, 0, 0);
 
+        // use - input to make the positive input, which is to the right, correspond to a right (CW) rotation
+        _rb.angularVelocity = -_frameInput.x * _turnRate/* * Mathf.Sign(_frameInput.y)*/; // Uncomment sign to have car-like reverse steering
+    }
     public void Fire()
     {
-        Debug.Log("Swinging sword");
+        // nothing 
     }
 
     public void Move(Vector2 input)
     {
         _frameInput = input;
+    }
+
+    public void OnReleaseControl()
+    {
+        _frameInput = Vector2.zero;
     }
 }

@@ -19,23 +19,14 @@ public class PlayerController : NetworkBehaviour
         _defaultControllable = GetComponent<IControllable>();
         CurrentControllable = _defaultControllable;
     }
-
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
-        if (!netIdentity.isLocalPlayer)
-        {
-            Destroy(this);
-            return;
-        }
+        base.OnStartAuthority();
+        GetComponent<PlayerInput>().enabled = true;
         LocalController = this;
-    }
-    private void Update()
-    {
-        Debug.Log(netId);
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Moving");
         CurrentControllable.Move(context.ReadValue<Vector2>());
     }
     public void OnFire(InputAction.CallbackContext context)
@@ -59,7 +50,7 @@ public class PlayerController : NetworkBehaviour
         if(_usedInteractor) // Already possessed, so unpossess
         {
             _usedInteractor.IsCurrentlyControlled = false;
-            _usedInteractor.netIdentity.RemoveClientAuthority();
+            _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
             _usedInteractor = null;
             TargetResetControllable(conn);
             return;
@@ -74,8 +65,7 @@ public class PlayerController : NetworkBehaviour
         {
             if(interactor.IsCurrentlyControlled == false)
             {
-                Debug.Log($"Interactor found: {interactor.netId}, {interactor.name}");
-                interactor.netIdentity.AssignClientAuthority(conn);
+                interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
                 interactor.IsCurrentlyControlled = true;
                 _usedInteractor = interactor;
                 TargetSwitchControllable(conn, interactor.netId);
@@ -87,12 +77,14 @@ public class PlayerController : NetworkBehaviour
     public void TargetSwitchControllable(NetworkConnectionToClient conn, uint controlInteractId)
     {
         Debug.Log($"About to look for {controlInteractId}");
+        CurrentControllable.OnReleaseControl();
         CurrentControllable = ControlInteractor.Interactors[controlInteractId].BoundControllable.GetComponent<IControllable>();
     }
 
     [TargetRpc]
     public void TargetResetControllable(NetworkConnectionToClient conn)
     {
+        CurrentControllable.OnReleaseControl();
         CurrentControllable = _defaultControllable;
     }
 
