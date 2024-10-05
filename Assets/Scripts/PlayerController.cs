@@ -10,6 +10,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private LayerMask _interactable;
     [SerializeField] private LayerMask _cannonballPickup;
 
+    public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
 
     private IControllable _defaultControllable;
@@ -52,7 +53,6 @@ public class PlayerController : NetworkBehaviour
     {
         if (_usedInteractor) // Already possessed, so unpossess
         {
-            Debug.Log("Unpossess");
             _usedInteractor.IsCurrentlyControlled = false;
 
             if(_usedInteractor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
@@ -60,6 +60,7 @@ public class PlayerController : NetworkBehaviour
                 _usedInteractor.BoundControllable.GetComponent<NetworkIdentity>().RemoveClientAuthority();
             }
             _usedInteractor = null;
+            IsCaptain = false;
             TargetResetControllable(conn);
             return;
         }
@@ -67,7 +68,6 @@ public class PlayerController : NetworkBehaviour
         // Check if trying to pick up a cannon
         if(!_hasCannonball && Physics2D.OverlapCircle(transform.position, _interactRange, _cannonballPickup))
         {
-            Debug.Log("Pick up cannonball");
             _hasCannonball = true;
             return;
         }
@@ -80,7 +80,6 @@ public class PlayerController : NetworkBehaviour
         {
             if (_hasCannonball && interactor.BoundControllable.TryGetComponent(out CannonMovement cannon))
             {
-                Debug.Log("Load cannonball");
                 _hasCannonball = false;
                 cannon.LoadCannon();
                 return;
@@ -88,10 +87,14 @@ public class PlayerController : NetworkBehaviour
 
             if (interactor.IsCurrentlyControlled == false)
             {
-                Debug.Log("Possess");
                 if (interactor.BoundControllable.GetComponent<IControllable>().RequiresAuthority)
                 {
                     interactor.BoundControllable.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+                }
+
+                if(interactor.BoundControllable.GetComponent<ShipMovement>())
+                {
+                    IsCaptain = true;
                 }
 
                 interactor.IsCurrentlyControlled = true;
