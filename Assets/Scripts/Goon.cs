@@ -1,19 +1,23 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Goon : MonoBehaviour {
     [SerializeField] private float speed;
     private Rigidbody2D _rb;
     private PlayerMovement _targetPlayer;
+    private BoxCollider2D _collider;
 
+    // Function to initialize the enemy
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
     }
 
+    // Function to update the enemy
     private void Update() {
         FindTargetPlayer();
         MoveTowardsTarget();
     }
 
+    // Function to find the target player
     private void FindTargetPlayer() {
         PlayerMovement[] players = GameObject.FindObjectsOfType<PlayerMovement>();
 
@@ -38,6 +42,7 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    // Function to move the enemy towards the target player
     private void MoveTowardsTarget() {
         if (_targetPlayer != null) {
             Vector2 direction = (_targetPlayer.transform.position - transform.position).normalized;
@@ -49,6 +54,13 @@ public class Enemy : MonoBehaviour {
         }
         else {
             _rb.velocity = Vector2.zero;
+        }
+    }
+    
+    // Function to check if the enemy is colliding with the player
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Player") {
+            Debug.Log("Enemy collided with player");
         }
     }
 }
