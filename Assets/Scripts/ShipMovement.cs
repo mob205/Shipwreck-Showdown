@@ -32,7 +32,7 @@ public class ShipMovement : MonoBehaviour, IControllable
         }
         _rb.velocity = transform.rotation * new Vector3(_frameVelocity.y, 0, 0);
 
-        // use - input to make the positive input, which is to the right, correspond to a right (CW) rotation
+        // negate input to make the positive input, which is to the right, correspond to a right (CW) rotation
         _rb.angularVelocity = -_frameInput.x * _turnRate/* * Mathf.Sign(_frameInput.y)*/; // Uncomment sign to have car-like reverse steering
     }
     public void Fire()

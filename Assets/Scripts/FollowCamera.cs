@@ -13,9 +13,9 @@ public class FollowCamera : MonoBehaviour
     {
         _player = PlayerController.LocalController;
         _startZ = transform.position.z;
-        if(NetworkServer.active)
+        if(NetworkServer.active && !NetworkClient.active)
         {
-            Destroy(gameObject); // don't need server in network server
+            Destroy(gameObject); // don't need camera on server
         }
     }
 
