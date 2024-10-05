@@ -34,6 +34,10 @@ public class PlayerMovement : MonoBehaviour, IControllable
             _frameVelocity = Vector2.MoveTowards(_frameVelocity, _frameInput * _maxSpeed, _acceleration * Time.fixedDeltaTime);
         }
     }
+    public void OnReleaseControl()
+    {
+        _frameInput = Vector2.zero;
+    }
 
     public void Fire()
     {

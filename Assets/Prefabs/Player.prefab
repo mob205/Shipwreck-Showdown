@@ -50,6 +50,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9e91cca75f9d340aa531f9a111e3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _interactRange: 10
+  _interactable:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &6270317531912792441
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,39 +1,55 @@
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 
 public class PlayerController : NetworkBehaviour
 {
+    public static PlayerController LocalController;
+
     [SerializeField] private float _interactRange;
     [SerializeField] private LayerMask _interactable;
 
-    private IControllable _curControllable;
+    public IControllable CurrentControllable { get; private set; }
+
     private IControllable _defaultControllable;
     private ControlInteractor _usedInteractor;
 
     private void Awake()
     {
         _defaultControllable = GetComponent<IControllable>();
-        _curControllable = _defaultControllable;
+        CurrentControllable = _defaultControllable;
+    }
+
+    public override void OnStartClient()
+    {
+        if (!netIdentity.isLocalPlayer)
+        {
+            Destroy(this);
+            return;
+        }
+        LocalController = this;
+    }
+    private void Update()
+    {
+        Debug.Log(netId);
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("TEST");
-        _curControllable.Move(context.ReadValue<Vector2>());
+        Debug.Log("Moving");
+        CurrentControllable.Move(context.ReadValue<Vector2>());
     }
     public void OnFire(InputAction.CallbackContext context)
     {
         if(context.started)
         {
-            _curControllable.Fire();
+            CurrentControllable.Fire();
         }
     }
     public void OnPossess(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            Debug.Log("possession stuff");
+            CmdTryPossess();
         }
     }
 
@@ -45,6 +61,7 @@ public class PlayerController : NetworkBehaviour
             _usedInteractor.IsCurrentlyControlled = false;
             _usedInteractor.netIdentity.RemoveClientAuthority();
             _usedInteractor = null;
+            TargetResetControllable(conn);
             return;
         }
 
@@ -57,9 +74,11 @@ public class PlayerController : NetworkBehaviour
         {
             if(interactor.IsCurrentlyControlled == false)
             {
+                Debug.Log($"Interactor found: {interactor.netId}, {interactor.name}");
                 interactor.netIdentity.AssignClientAuthority(conn);
                 interactor.IsCurrentlyControlled = true;
                 _usedInteractor = interactor;
+                TargetSwitchControllable(conn, interactor.netId);
             }
         }
     }
@@ -67,13 +86,14 @@ public class PlayerController : NetworkBehaviour
     [TargetRpc]
     public void TargetSwitchControllable(NetworkConnectionToClient conn, uint controlInteractId)
     {
-        _curControllable = ControlInteractor.Interactors[controlInteractId].BoundControllable;
+        Debug.Log($"About to look for {controlInteractId}");
+        CurrentControllable = ControlInteractor.Interactors[controlInteractId].BoundControllable.GetComponent<IControllable>();
     }
 
     [TargetRpc]
     public void TargetResetControllable(NetworkConnectionToClient conn)
     {
-        _curControllable = _defaultControllable;
+        CurrentControllable = _defaultControllable;
     }
 
     public Collider2D GetClosestCollider(Collider2D[] colliders)
