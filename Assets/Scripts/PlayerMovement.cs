@@ -19,8 +19,9 @@ public class PlayerMovement : NetworkBehaviour, IControllable
 
     private bool _canFire = true;
 
-    [field: SerializeField] public Transform CameraAngle { get; private set; }
+    [field: SerializeField] public Transform CameraAngle { get; set; }
     [field: SerializeField] public float CameraSize { get; private set; }
+    [field: SerializeField] public bool DoSway { get; private set; }
 
     public bool RequiresAuthority { get; } = true;
     public GameObject Object { get { return gameObject; } }

@@ -53,7 +53,10 @@ public class EndStateController : NetworkBehaviour
         var players = FindObjectsOfType<Health>();
         foreach(var player in players)
         {
-            player.ModifyHealth(-999, gameObject);
+            if(player.GetComponent<PlayerController>())
+            {
+                player.ModifyHealth(-999, gameObject);
+            }
         }
     }
 

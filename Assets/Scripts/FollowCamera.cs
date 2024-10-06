@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
+    [SerializeField] private float _offsetMax;
+    [SerializeField] private float _offsetPeriod;
+
     private PlayerController _player;
     private float _startZ;
     private Camera _camera;
@@ -23,15 +26,20 @@ public class FollowCamera : MonoBehaviour
 
     private void Update()
     {
-        if(_player != null)
-        {
-            var cameraPos = _player.CurrentControllable.CameraAngle.position;
-            transform.position = new Vector3(cameraPos.x, cameraPos.y, _startZ);
-            _camera.orthographicSize = _player.CurrentControllable.CameraSize;
-        }
-        else
+        if(_player == null)
         {
             _player = PlayerController.LocalController;
+            return;
         }
+        var offset = 0f;
+        if(_player.CurrentControllable.DoSway)
+        {
+            var timeMultiplier = (2 * Mathf.PI) / _offsetPeriod;
+            offset = _offsetMax * Mathf.Sin(timeMultiplier * Time.time);
+        }
+
+        var cameraPos = _player.CurrentControllable.CameraAngle.position;
+        transform.position = new Vector3(cameraPos.x, cameraPos.y + offset, _startZ);
+        _camera.orthographicSize = _player.CurrentControllable.CameraSize;
     }
 }

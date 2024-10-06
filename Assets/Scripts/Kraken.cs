@@ -49,10 +49,7 @@ public class Kraken : NetworkBehaviour
 
     private void OnPossessed(ControlInteractor interactor)
     {
-        if(!_hasStarted && interactor.BoundControllable.GetComponent<ShipMovement>())
-        {
-            _hasStarted = true;
-        }
+        _hasStarted = true;
     }
 
     private void PlayKrakenSound()
@@ -136,7 +133,6 @@ public class Kraken : NetworkBehaviour
         {
             
             case AttackType.Attack1:
-                //StartCoroutine(OscillateAttack());
                 break;
             case AttackType.Attack2:
                 RandomAttack();
@@ -145,7 +141,7 @@ public class Kraken : NetworkBehaviour
                 QuadDirectionalAttack();
                 break;
             case AttackType.Attack4:
-                // SpiralAttack();
+                StartCoroutine(SpiralAttack());
                 break;
             case AttackType.Attack5:
                 DirectionAttack();
@@ -204,6 +200,22 @@ public class Kraken : NetworkBehaviour
         {
             Vector2 direction = (ShipLocations.CloseFront.position - fireSpot.transform.position).normalized;
             FireBulletFrom(fireSpot.transform.position, direction);
+        }
+        isAttacking = false;
+    }
+    
+    public IEnumerator SpiralAttack()
+    {
+        Debug.Log("Spiral attack");
+        isAttacking = true;
+        // Shoot bullets from kraken head in a full circle
+        for (int i = 0; i < 20; i++)
+        {
+            float angle = i * 2 * Mathf.PI / 20;
+            Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            FireBulletFrom(transform.position, direction);
+            // Wait a bit before shooting the next bullet
+            yield return new WaitForSeconds(0.1f);
         }
         isAttacking = false;
     }

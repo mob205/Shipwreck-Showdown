@@ -18,8 +18,9 @@ public class CannonMovement : NetworkBehaviour, IControllable
     private int _numCannonballsLoaded = 0;
 
     [field: SerializeField] public bool RequiresAuthority { get; } = false;
-    [field: SerializeField] public Transform CameraAngle { get; private set; }
+    [field: SerializeField] public Transform CameraAngle { get; set; }
     [field: SerializeField] public float CameraSize { get; private set; }
+    [field: SerializeField] public bool DoSway { get; } = false;
 
     public GameObject Object { get { return gameObject; } }
 
