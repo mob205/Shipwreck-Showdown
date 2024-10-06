@@ -14,6 +14,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private AudioEvent reload;
     [SerializeField] private AudioEvent death;
 
+    [SerializeField] private SpriteRenderer _cannonballIndicator;
+
     [SerializeField] private AnimatorController[] _animatorControllers;
     [SerializeField] private Animator _animator;
 
@@ -120,9 +122,11 @@ public class PlayerController : NetworkBehaviour
         if(newVal == true)
         {
             pickup.Play(_source);
+            _cannonballIndicator.enabled = true;
         }
         else{
             reload.Play(_source);
+            _cannonballIndicator.enabled = false;
         }
     }
     public void OnPossess(InputAction.CallbackContext context)
