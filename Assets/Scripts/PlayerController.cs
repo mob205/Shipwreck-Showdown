@@ -29,7 +29,6 @@ public class PlayerController : NetworkBehaviour
 
     [SyncVar(hook = nameof(ChangeCannonball))] private bool _hasCannonball;
 
-    [SyncVar(hook = nameof(OnInputChange))] private Vector2 _moveInput;
 
     private void Awake()
     {
@@ -67,18 +66,25 @@ public class PlayerController : NetworkBehaviour
         //_animator.runtimeAnimatorController = _animatorControllers[color % _animatorControllers.Length];
     }
 
-    private void OnInputChange(Vector2 oldVal, Vector2 newVal)
+    [ClientRpc]
+    private void RpcOnInputChange(Vector2 input)
     {
-        if(newVal.x < 0)
+        if(input.x < 0)
         {
             _spriteRenderer.flipX = true;
         }
-        else if(newVal.x > 0)
+        else if(input.x > 0)
         {
             _spriteRenderer.flipX = false;
         }
-        _animator.SetInteger("MoveX", Mathf.CeilToInt(newVal.x));
-        _animator.SetInteger("MoveY", Mathf.CeilToInt(newVal.y));
+        _animator.SetInteger("MoveX", Mathf.CeilToInt(input.x));
+        _animator.SetInteger("MoveY", Mathf.CeilToInt(input.y));
+    }
+
+    [Command]
+    private void CmdOnInputChange(Vector2 input)
+    {
+        RpcOnInputChange(input);
     }
 
     private void OnDeath(Health health)
@@ -100,7 +106,7 @@ public class PlayerController : NetworkBehaviour
     {
         Vector2 input = context.ReadValue<Vector2>();
         CurrentControllable.Move(input);
-        _moveInput = input; // Sync input to all clients for animation
+        CmdOnInputChange(input);
     }
     public void OnFire(InputAction.CallbackContext context)
     {
