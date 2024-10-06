@@ -23,35 +23,17 @@ public class Menu : MonoBehaviour
         manager = NetworkManager.singleton;
 
         JoinText = JoinButton.GetComponentInChildren<TextMeshProUGUI>();
-        
-    }
 
-    private void InitializeServer()
-    {
-
-        manager.StartServer();
-        Debug.Log("giggling");
-
+        Debug.Log(manager.networkAddress.Length);
     }
 
     public void JoinServer()
     {
-
-        if(joinAttempt)
-        {
-            manager.StopClient();
-            joinAttempt = false;
-            JoinText.text = "JOIN";
-            return;
-
-        }
-
         if(!string.IsNullOrEmpty(EnterIP.text))
         {
-            manager.networkAddress = EnterIP.text;
+            manager.networkAddress = EnterIP.text.Remove(EnterIP.text.Length - 1);
             joinAttempt = true;
             manager.StartClient();
-
         }
 
     }
@@ -68,7 +50,5 @@ public class Menu : MonoBehaviour
 
         input = ip;
         Debug.Log(input);
-
-
     }
 }
