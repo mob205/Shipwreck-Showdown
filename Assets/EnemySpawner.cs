@@ -13,6 +13,7 @@ public class EnemySpawner : NetworkBehaviour
     [SerializeField] private Transform[] _spawns;
 
     private float _currentTimer;
+    private bool _hasStarted = false;
 
     public override void OnStartClient()
     {
@@ -22,9 +23,22 @@ public class EnemySpawner : NetworkBehaviour
             return;
         }
     }
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        ControlInteractor.OnPossessed.AddListener(OnPossessed);
+    }
+    private void OnPossessed(ControlInteractor interactor)
+    {
+        if (!_hasStarted && interactor.BoundControllable.GetComponent<ShipMovement>())
+        {
+            _hasStarted = true;
+        }
+    }
+
     private void Update()
     {
-        if(netIdentity.isServer)
+        if(netIdentity.isServer && _hasStarted)
         {
             _currentTimer -= Time.deltaTime;
             if (_currentTimer <= 0)

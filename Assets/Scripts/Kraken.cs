@@ -14,6 +14,8 @@ public class Kraken : NetworkBehaviour
     [SerializeField] private float bulletLifetime = 20f;
     bool isAttacking = false;
 
+    bool _hasStarted = false;
+
     private Health _health;
     private Transform closestTarget;
 
@@ -29,10 +31,24 @@ public class Kraken : NetworkBehaviour
     {
         closestTarget = GetClosestTarget(transform);
     }
-    
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        ControlInteractor.OnPossessed.AddListener(OnPossessed);
+    }
+
+    private void OnPossessed(ControlInteractor interactor)
+    {
+        if(!_hasStarted && interactor.BoundControllable.GetComponent<ShipMovement>())
+        {
+            _hasStarted = true;
+        }
+    }
+
     private void Update()
     {
-        if(!NetworkServer.active) { return; }
+        if(!NetworkServer.active || !_hasStarted) { return; }
         // Move towards the closest target
         if (closestTarget != null)
         {
