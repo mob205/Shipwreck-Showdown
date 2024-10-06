@@ -12,8 +12,6 @@ public class Menu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI EnterIP;
 
     private NetworkManager manager;
-    private bool joinAttempt;
-    private TextMeshProUGUI JoinText;
 
 
     // Start is called before the first frame update
@@ -21,18 +19,13 @@ public class Menu : MonoBehaviour
     {
 
         manager = NetworkManager.singleton;
-
-        JoinText = JoinButton.GetComponentInChildren<TextMeshProUGUI>();
-
-        Debug.Log(manager.networkAddress.Length);
     }
 
     public void JoinServer()
     {
         if(!string.IsNullOrEmpty(EnterIP.text))
         {
-            manager.networkAddress = EnterIP.text.Remove(EnterIP.text.Length - 1);
-            joinAttempt = true;
+            manager.networkAddress = EnterIP.text.Remove(EnterIP.text.Length - 1); // no idea why this is the only way it works
             manager.StartClient();
         }
 

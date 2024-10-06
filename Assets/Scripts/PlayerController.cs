@@ -16,7 +16,7 @@ public class PlayerController : NetworkBehaviour
     private IControllable _defaultControllable;
     private ControlInteractor _usedInteractor;
 
-    [SyncVar] private bool _hasCannonball;
+    [SyncVar(hook = nameof(ChangeCannonball))] private bool _hasCannonball;
 
     private void Awake()
     {
@@ -39,6 +39,10 @@ public class PlayerController : NetworkBehaviour
         {
             CurrentControllable.Fire();
         }
+    }
+    private void ChangeCannonball(bool oldVal, bool newVal)
+    {
+        // SFX HERE
     }
     public void OnPossess(InputAction.CallbackContext context)
     {
