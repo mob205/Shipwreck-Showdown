@@ -11,6 +11,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private LayerMask _cannonballPickup;
     [SerializeField] private AudioEvent pickup;
     [SerializeField] private AudioEvent reload;
+    [SerializeField] private AudioEvent death;
 
     public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
@@ -39,8 +40,19 @@ public class PlayerController : NetworkBehaviour
     
     private void OnDeath(Health health)
     {
+        RpcOnDeath(transform.position);
         NetworkServer.Destroy(gameObject);
     }
+
+    [ClientRpc]
+    private void RpcOnDeath(Vector2 position)
+    {
+        if(death)
+        {
+            death.PlayOneShot(position);
+        }
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         CurrentControllable.Move(context.ReadValue<Vector2>());

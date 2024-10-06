@@ -1,9 +1,11 @@
 using UnityEngine;
 using Mirror;
 
-public class Goon : MonoBehaviour {
+public class Goon : NetworkBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private int damage;
+
+    [SerializeField] private AudioEvent _deathAudio;
 
     private Rigidbody2D _rb;
     private PlayerController _targetPlayer;
@@ -37,7 +39,17 @@ public class Goon : MonoBehaviour {
     private void OnDeath(Health health)
     {
         ControlInteractor.OnPossessed.RemoveListener(OnNearbyPossession);
+        RpcOnDeath(transform.position);
         NetworkServer.Destroy(gameObject);
+    }
+
+    [ClientRpc]
+    private void RpcOnDeath(Vector2 position)
+    {
+        if(_deathAudio)
+        {
+            _deathAudio.PlayOneShot(position);
+        }
     }
     private void OnDamage(Health health, int amount, GameObject attacker)
     {

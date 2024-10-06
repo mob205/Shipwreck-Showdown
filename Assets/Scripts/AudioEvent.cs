@@ -13,6 +13,8 @@ public class AudioEvent : ScriptableObject
     public float MinVolume;
     public float MaxVolume;
 
+    public AudioSource OneShotAudioSource;
+
     public void Play(AudioSource audioSource)
     {
         AudioClip clip = Clips[Random.Range(0, Clips.Length)];
@@ -22,5 +24,11 @@ public class AudioEvent : ScriptableObject
         audioSource.pitch = pitch;
         audioSource.volume = volume;
         audioSource.Play();
+    }
+    public void PlayOneShot(Vector3 audioPos)
+    {
+        var oneshotAudio = Instantiate(OneShotAudioSource, audioPos, Quaternion.identity);
+        Play(oneshotAudio);
+        Destroy(oneshotAudio, oneshotAudio.clip.length);
     }
 }

@@ -16,6 +16,7 @@ public class Kraken : NetworkBehaviour
     [SerializeField] private float minSfxDelay;
     [SerializeField] private float maxSfxDelay;
     [SerializeField] private AudioEvent roar;
+    [SerializeField] private AudioEvent death;
 
     private float _currentSFXTimer;
 
@@ -45,11 +46,26 @@ public class Kraken : NetworkBehaviour
     {
         base.OnStartServer();
         ControlInteractor.OnPossessed.AddListener(OnPossessed);
+        _health.OnDeath.AddListener(OnDeath);
     }
 
     private void OnPossessed(ControlInteractor interactor)
     {
         _hasStarted = true;
+    }
+
+    private void OnDeath(Health health)
+    {
+        RpcOnDeath(transform.position);
+    }
+
+    [ClientRpc]
+    private void RpcOnDeath(Vector2 position)
+    {
+        if(death)
+        {
+            death.PlayOneShot(position);
+        }
     }
 
     private void PlayKrakenSound()

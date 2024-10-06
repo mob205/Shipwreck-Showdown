@@ -18,3 +18,4 @@ MonoBehaviour:
   MaxPitch: 1.15
   MinVolume: 0.6
   MaxVolume: 0.75
+  OneShotAudioSource: {fileID: 0}

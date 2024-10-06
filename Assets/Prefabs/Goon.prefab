@@ -102,8 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213adfcc452ab421ab6c3bdc96cb0762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   speed: 2
   damage: 1
+  _deathAudio: {fileID: 0}
   damageCooldown: 0.5
 --- !u!50 &2447062181881798529
 Rigidbody2D:
