@@ -83,7 +83,7 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     [ClientRpc]
     private void RpcSwingWeapon()
     {
-        Debug.Log("Swing");
+        // SFX HERE
     }
 
 

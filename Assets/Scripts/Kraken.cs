@@ -12,6 +12,12 @@ public class Kraken : NetworkBehaviour
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private FireSpot[] fireSpots;
     [SerializeField] private float bulletLifetime = 20f;
+
+    [SerializeField] private float minSfxDelay;
+    [SerializeField] private float maxSfxDelay;
+
+    private float _currentSFXTimer;
+
     bool isAttacking = false;
 
     bool _hasStarted = false;
@@ -46,8 +52,19 @@ public class Kraken : NetworkBehaviour
         }
     }
 
+    private void PlayKrakenSound()
+    {
+        // SFX HERE
+    }
+
     private void Update()
     {
+        _currentSFXTimer -= Time.deltaTime;
+        if(_currentSFXTimer <= 0)
+        {
+            PlayKrakenSound();
+            _currentSFXTimer = Random.Range(minSfxDelay, maxSfxDelay);
+        }
         if(!NetworkServer.active || !_hasStarted) { return; }
         // Move towards the closest target
         if (closestTarget != null)

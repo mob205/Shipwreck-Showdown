@@ -53,6 +53,13 @@ public class EnemySpawner : NetworkBehaviour
     {
         var randomSpawn = _spawns[Random.Range(0, _spawns.Length - 1)];
         var enemy = Instantiate(_enemy, randomSpawn.position, randomSpawn.rotation);
+        RpcOnEnemySpawn();
         NetworkServer.Spawn(enemy);
+    }
+
+    [ClientRpc]
+    private void RpcOnEnemySpawn()
+    {
+        // SFX HERE
     }
 }
