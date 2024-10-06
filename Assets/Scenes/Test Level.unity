@@ -1530,6 +1530,14 @@ PrefabInstance:
       value: Kraken
       objectReference: {fileID: 0}
     - target: {fileID: 1610053911115131792, guid: a55f5b7cd322f4f64abbec8d24169765, type: 3}
+      propertyPath: maxSfxDelay
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610053911115131792, guid: a55f5b7cd322f4f64abbec8d24169765, type: 3}
+      propertyPath: minSfxDelay
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610053911115131792, guid: a55f5b7cd322f4f64abbec8d24169765, type: 3}
       propertyPath: bulletLifetime
       value: 10
       objectReference: {fileID: 0}

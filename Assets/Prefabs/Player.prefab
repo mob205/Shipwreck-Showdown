@@ -164,6 +164,7 @@ MonoBehaviour:
   _attackRange: 3
   _damage: 1
   _fireRate: 2
+  sword: {fileID: 11400000, guid: 430fe2349fb5e11478b4fbe49a93979a, type: 2}
   _deceleration: 250
   _acceleration: 250
   _maxSpeed: 5

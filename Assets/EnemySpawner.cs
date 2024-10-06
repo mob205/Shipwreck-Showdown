@@ -11,9 +11,11 @@ public class EnemySpawner : NetworkBehaviour
     [SerializeField] private float _maxSpawnTime;
 
     [SerializeField] private Transform[] _spawns;
+    [SerializeField] private AudioEvent splash;
 
     private float _currentTimer;
     private bool _hasStarted = false;
+    private AudioSource _source;
 
     public override void OnStartClient()
     {
@@ -43,6 +45,7 @@ public class EnemySpawner : NetworkBehaviour
             _currentTimer -= Time.deltaTime;
             if (_currentTimer <= 0)
             {
+                _source = GetComponent<AudioSource>();
                 SpawnEnemy();
                 _currentTimer = Random.Range(_minSpawnTime, _maxSpawnTime);
             }
@@ -60,6 +63,6 @@ public class EnemySpawner : NetworkBehaviour
     [ClientRpc]
     private void RpcOnEnemySpawn()
     {
-        // SFX HERE
+        splash.Play(_source);
     }
 }

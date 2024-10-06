@@ -15,6 +15,7 @@ public class Kraken : NetworkBehaviour
 
     [SerializeField] private float minSfxDelay;
     [SerializeField] private float maxSfxDelay;
+    [SerializeField] private AudioEvent roar;
 
     private float _currentSFXTimer;
 
@@ -24,9 +25,11 @@ public class Kraken : NetworkBehaviour
 
     private Health _health;
     private Transform closestTarget;
+    private AudioSource _source;
 
     private void Start()
     {
+        _source = GetComponent<AudioSource>();
         InvokeRepeating("UpdateClosestTarget", 0f, 1f);
         _health = GetComponent<Health>();
         isAttacking = false;
@@ -54,12 +57,13 @@ public class Kraken : NetworkBehaviour
 
     private void PlayKrakenSound()
     {
-        // SFX HERE
+        roar.Play(_source);
     }
 
     private void Update()
     {
         _currentSFXTimer -= Time.deltaTime;
+        
         if(_currentSFXTimer <= 0)
         {
             PlayKrakenSound();

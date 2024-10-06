@@ -9,6 +9,8 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     [SerializeField] private float _attackRange;
     [SerializeField] private int _damage;
     [SerializeField] private float _fireRate;
+    [SerializeField] private AudioEvent sword;
+
    
     [Header("Movement")]
     [SerializeField] private float _deceleration;
@@ -26,10 +28,15 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     private Vector2 _frameVelocity;
     private Vector2 _frameInput;
     private Rigidbody2D _rb;
+    private AudioSource _source;
 
-    private void Awake()
+    private void Awake() 
     {
         _rb = GetComponent<Rigidbody2D>();
+        _source = GetComponent<AudioSource>();
+        if(sword != null){
+            Debug.Log("feet");
+        }
     }
 
     private void FixedUpdate()
@@ -59,6 +66,7 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     {
         if(!_canFire) { return; }
         ProcessAttackDamage();
+        RpcSwingWeapon();
         _canFire = false;
         Invoke(nameof(EnableFire), 1f / _fireRate);
     }
@@ -83,7 +91,7 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     [ClientRpc]
     private void RpcSwingWeapon()
     {
-        // SFX HERE
+        sword.Play(_source);
     }
 
 
