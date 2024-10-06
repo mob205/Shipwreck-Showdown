@@ -1,7 +1,6 @@
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
-using UnityEditor.Animations;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -16,7 +15,6 @@ public class PlayerController : NetworkBehaviour
 
     [SerializeField] private SpriteRenderer _cannonballIndicator;
 
-    [SerializeField] private AnimatorController[] _animatorControllers;
 
     public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
