@@ -11,6 +11,10 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     [SerializeField] private float _fireRate;
     [SerializeField] private AudioEvent sword;
 
+    [SerializeField] private SpriteRenderer _swordIcon;
+    [SerializeField] private float _swingSpeed;
+    [SerializeField] private Rigidbody2D _swordRB;
+
    
     [Header("Movement")]
     [SerializeField] private float _deceleration;
@@ -89,9 +93,18 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     [ClientRpc]
     private void RpcSwingWeapon()
     {
+        Debug.Log("Rpc Swing");
         sword.Play(_source);
+        _swordIcon.enabled = true;
+        _swordRB.angularVelocity = _swingSpeed;
+        Invoke(nameof(DisableSwordIcon), 360f / _swingSpeed);
     }
 
+    private void DisableSwordIcon()
+    {
+        _swordRB.angularVelocity = 0;
+        _swordIcon.enabled = false;
+    }
 
     public void Move(Vector2 input)
     {
