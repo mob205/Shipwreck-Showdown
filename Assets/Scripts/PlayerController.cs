@@ -25,6 +25,7 @@ public class PlayerController : NetworkBehaviour
     {
         _defaultControllable = GetComponent<IControllable>();
         CurrentControllable = _defaultControllable;
+        _defaultControllable.CameraAngle = GameObject.FindGameObjectWithTag("DefaultCam").transform;
         _source = GetComponent<AudioSource>();
         GetComponent<Health>().OnDeath.AddListener(OnDeath);
 
