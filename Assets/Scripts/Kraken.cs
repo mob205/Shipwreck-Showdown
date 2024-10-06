@@ -7,12 +7,13 @@ public class Kraken : MonoBehaviour
     public Transform FrontTarget;
     public Transform BackTarget;
     public Transform ShipTarget;
+    public Transform SeconfFrontTarget; // because why the FUCK NOT
     public float speed = 1f;
     public float fireCooldown = 1f;
     private float fireTimer = 0f;
     [SerializeField] private Projectile bulletPrefab;
-    [SerializeField] private float bulletSpeed = 1f;
-    [SerializeField] private Transform[] fireSpots;
+    [SerializeField] private float bulletSpeed = 10f;
+    [SerializeField] private Tentacle[] fireSpots;
     bool isAttacking = false;
     [SerializeField] private int maxhealth;
     [SerializeField] private int currenthealth;
@@ -51,12 +52,12 @@ public class Kraken : MonoBehaviour
                 // Choose an attack based on health
                 if (currenthealth > maxhealth / 2)
                 {
-                    PerformAttack((AttackType)Random.Range(0, 2));
+                    PerformAttack((AttackType)Random.Range(0, 3));
                     
                 }
                 else
                 {
-                    PerformAttack((AttackType)Random.Range(0, 4));
+                    PerformAttack((AttackType)Random.Range(0, 5));
                 }
             }
         }
@@ -99,12 +100,18 @@ public class Kraken : MonoBehaviour
         {
             
             case AttackType.Attack1:
-                StartCoroutine(OscillateAttack());
+                //StartCoroutine(OscillateAttack());
                 break;
             case AttackType.Attack2:
                 RandomAttack();
                 break;
             case AttackType.Attack3:
+                QuadDirectionalAttack();
+                break;
+            case AttackType.Attack4:
+                // SpiralAttack();
+                break;
+            case AttackType.Attack5:
                 DirectionAttack();
                 break;
             default:
@@ -122,9 +129,9 @@ public class Kraken : MonoBehaviour
         {
             if (index < fireSpots.Length)
             {
-                Transform fireSpot = fireSpots[index];
+                var fireSpot = fireSpots[index];
                 
-                FireBulletFrom(fireSpot, Vector2.up);
+                FireBulletFrom(fireSpot.transform, Vector2.up);
                 yield return new WaitForSeconds(0.2f);
             }
         }
@@ -134,16 +141,42 @@ public class Kraken : MonoBehaviour
     public void RandomAttack()
     {
         Debug.Log("Random attack");
+        isAttacking = true;
+        foreach (var fireSpot in fireSpots)
+        {
+            FireBulletFrom(fireSpot.transform, new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)));
+        }
+        isAttacking = false;
+    }
+    
+    public void QuadDirectionalAttack()
+    {
+        Debug.Log("Quad directional attack");
+        isAttacking = true;
+        foreach (var fireSpot in fireSpots)
+        {
+            FireBulletFrom(fireSpot.transform, fireSpot.direction);
+        }
+        isAttacking = false;
     }
 
     public void DirectionAttack()
     {
         Debug.Log("Direction attack");
+        isAttacking = true;
+        foreach (var fireSpot in fireSpots)
+        {
+            Vector2 direction = (SeconfFrontTarget.position - fireSpot.transform.position).normalized;
+            FireBulletFrom(fireSpot.transform, direction);
+        }
+        isAttacking = false;
     }
+    
+    
     
     private void FireBulletFrom(Transform fireSpot, Vector2 direction)
     {
         var bullet = Instantiate(bulletPrefab, fireSpot.position, fireSpot.rotation);
-        bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+        bullet.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletSpeed;
     }
 }
