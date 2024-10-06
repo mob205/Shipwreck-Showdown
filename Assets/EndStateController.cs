@@ -6,6 +6,7 @@ using UnityEngine;
 public class EndStateController : NetworkBehaviour
 {
     [SerializeField] private GameObject _gameoverUI;
+    [SerializeField] private GameObject _victoryUI;
     private int _numPlayersAlive;
 
     public static EndStateController Instance;
@@ -23,6 +24,8 @@ public class EndStateController : NetworkBehaviour
     {
         base.OnStartServer();
         FindObjectOfType<ShipMovement>().GetComponent<Health>().OnDeath.AddListener(OnShipDeath);
+
+        FindObjectOfType<Kraken>().GetComponent<Health>().OnDeath.AddListener(OnKrakenDeath);
     }
 
     private void OnServerAddPlayer(NetworkIdentity identity)
@@ -41,7 +44,7 @@ public class EndStateController : NetworkBehaviour
         --_numPlayersAlive;
         if(_numPlayersAlive <= 0)
         {
-            RpcSpawnUI();
+            RpcSpawnEndUI();
         }
     }
 
@@ -54,12 +57,28 @@ public class EndStateController : NetworkBehaviour
         }
     }
 
+    private void OnKrakenDeath(Health health)
+    {
+        var players = FindObjectsOfType<Health>();
+        foreach(var player in players)
+        {
+            player.IsVulnerable = false;
+        }
+        NetworkServer.Destroy(health.gameObject);
+        RpcSpawnVictoryUI();
+    }
+
     [ClientRpc]
-    private void RpcSpawnUI()
+    private void RpcSpawnEndUI()
     {
         _gameoverUI.SetActive(true);
     }
 
+    [ClientRpc]
+    private void RpcSpawnVictoryUI()
+    {
+        _victoryUI.SetActive(true);
+    }
 
     public void Restart()
     {

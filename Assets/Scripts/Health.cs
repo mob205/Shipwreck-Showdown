@@ -5,8 +5,9 @@ using UnityEngine.Events;
 public class Health : NetworkBehaviour
 {
     [field: SerializeField] public int MaxHealth { get; private set; }
-
     [field: SyncVar] public int CurrentHealth { get; private set; }
+
+    public bool IsVulnerable { get; set; } = true;
 
     public UnityEvent<Health> OnDeath;
 
@@ -22,6 +23,7 @@ public class Health : NetworkBehaviour
     [Server]
     public void ModifyHealth(int amount, GameObject attacker)
     {
+        if (!IsVulnerable) { return; }
         CurrentHealth += amount;
         if(amount < 0)
         {
