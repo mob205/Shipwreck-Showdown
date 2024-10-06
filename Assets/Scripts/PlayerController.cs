@@ -78,6 +78,7 @@ public class PlayerController : NetworkBehaviour
             _spriteRenderer.flipX = false;
         }
         _animator.SetInteger("MoveX", Mathf.CeilToInt(newVal.x));
+        _animator.SetInteger("MoveY", Mathf.CeilToInt(newVal.y));
     }
 
     private void OnDeath(Health health)
