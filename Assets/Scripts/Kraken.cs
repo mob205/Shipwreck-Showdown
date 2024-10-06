@@ -46,10 +46,7 @@ public class Kraken : NetworkBehaviour
 
     private void OnPossessed(ControlInteractor interactor)
     {
-        if(!_hasStarted && interactor.BoundControllable.GetComponent<ShipMovement>())
-        {
-            _hasStarted = true;
-        }
+        _hasStarted = true;
     }
 
     private void PlayKrakenSound()

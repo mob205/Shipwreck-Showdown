@@ -113,8 +113,30 @@
                 },
                 {
                     "name": "",
+                    "id": "70d034f6-aba1-4a3f-a10a-58bfaef557b0",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1b0f51a5-c8cd-4f01-aaa8-7d6d5d2b2b0b",
                     "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Possess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae0d58ec-cf48-4c5e-a07b-e95f05fab482",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
