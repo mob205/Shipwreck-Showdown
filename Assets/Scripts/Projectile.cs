@@ -1,8 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [field: SerializeField] public float Damage { get; set; }
+    public GameObject Shooter { get; set; }
+    [field: SerializeField] public int Damage { get; set; }
+    [SerializeField] private LayerMask _attackLayer;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((_attackLayer & (1 << collision.gameObject.layer)) != 0 && collision.TryGetComponent(out Health health))
+        {
+            if(NetworkServer.active)
+            {
+                Debug.Log("Damaging");
+                health.ModifyHealth(-Damage, Shooter);
+            }
+            Destroy(gameObject);
+        }
+    }
 }

@@ -1,28 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class Kraken : MonoBehaviour
+public class Kraken : NetworkBehaviour
 {
-    public Transform FrontTarget;
-    public Transform BackTarget;
-    public Transform ShipTarget;
-    public Transform SeconfFrontTarget; // because why the FUCK NOT
     public float speed = 1f;
     public float fireCooldown = 1f;
     private float fireTimer = 0f;
     [SerializeField] private Projectile bulletPrefab;
     [SerializeField] private float bulletSpeed = 10f;
-    [SerializeField] private Tentacle[] fireSpots;
+    [SerializeField] private FireSpot[] fireSpots;
     bool isAttacking = false;
-    [SerializeField] private int maxhealth;
-    [SerializeField] private int currenthealth;
+
+    private Health _health;
     private Transform closestTarget;
 
     private void Start()
     {
         InvokeRepeating("UpdateClosestTarget", 0f, 1f);
-        currenthealth = maxhealth;
+        _health = GetComponent<Health>();
         isAttacking = false;
     }
 
@@ -34,6 +31,7 @@ public class Kraken : MonoBehaviour
     
     private void Update()
     {
+        if(!NetworkServer.active) { return; }
         // Move towards the closest target
         if (closestTarget != null)
         {
@@ -50,7 +48,7 @@ public class Kraken : MonoBehaviour
                 fireTimer = fireCooldown;
 
                 // Choose an attack based on health
-                if (currenthealth > maxhealth / 2)
+                if (_health.CurrentHealth > (float) _health.MaxHealth / 2)
                 {
                     PerformAttack((AttackType)Random.Range(0, 3));
                     
@@ -66,16 +64,16 @@ public class Kraken : MonoBehaviour
     // Function to get the closest target
     public Transform GetClosestTarget(Transform krakenPosition)
     {
-        float distanceToFront = Vector3.Distance(krakenPosition.position, FrontTarget.position);
-        float distanceToBack = Vector3.Distance(krakenPosition.position, BackTarget.position);
+        float distanceToFront = Vector3.Distance(krakenPosition.position, ShipLocations.Front.position);
+        float distanceToBack = Vector3.Distance(krakenPosition.position, ShipLocations.Back.position);
 
         if (distanceToFront < distanceToBack)
         {
-            return FrontTarget;
+            return ShipLocations.Front;
         }
         else
         {
-            return BackTarget;
+            return ShipLocations.Back;
         }
     }
 
@@ -131,7 +129,7 @@ public class Kraken : MonoBehaviour
             {
                 var fireSpot = fireSpots[index];
                 
-                FireBulletFrom(fireSpot.transform, Vector2.up);
+                FireBulletFrom(fireSpot.transform.position, Vector2.up);
                 yield return new WaitForSeconds(0.2f);
             }
         }
@@ -144,7 +142,7 @@ public class Kraken : MonoBehaviour
         isAttacking = true;
         foreach (var fireSpot in fireSpots)
         {
-            FireBulletFrom(fireSpot.transform, new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)));
+            FireBulletFrom(fireSpot.transform.position, new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)));
         }
         isAttacking = false;
     }
@@ -155,7 +153,7 @@ public class Kraken : MonoBehaviour
         isAttacking = true;
         foreach (var fireSpot in fireSpots)
         {
-            FireBulletFrom(fireSpot.transform, fireSpot.direction);
+            FireBulletFrom(fireSpot.transform.position, fireSpot.direction);
         }
         isAttacking = false;
     }
@@ -166,17 +164,29 @@ public class Kraken : MonoBehaviour
         isAttacking = true;
         foreach (var fireSpot in fireSpots)
         {
-            Vector2 direction = (SeconfFrontTarget.position - fireSpot.transform.position).normalized;
-            FireBulletFrom(fireSpot.transform, direction);
+            Vector2 direction = (ShipLocations.CloseFront.position - fireSpot.transform.position).normalized;
+            FireBulletFrom(fireSpot.transform.position, direction);
         }
         isAttacking = false;
     }
-    
-    
-    
-    private void FireBulletFrom(Transform fireSpot, Vector2 direction)
+
+    [Server]
+    private void FireBulletFrom(Vector2 pos, Vector2 direction)
     {
-        var bullet = Instantiate(bulletPrefab, fireSpot.position, fireSpot.rotation);
-        bullet.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletSpeed;
+        SpawnBullet(pos, direction);
+        RpcSpawnBullet(pos, direction);
+    }
+
+    [ClientRpc]
+    private void RpcSpawnBullet(Vector2 pos, Vector2 direction)
+    {
+        SpawnBullet(pos, direction);
+    }
+
+
+    private void SpawnBullet(Vector2 pos, Vector2 dir)
+    {
+        var bullet = Instantiate(bulletPrefab, pos, Quaternion.identity);
+        bullet.GetComponent<Rigidbody2D>().velocity = dir.normalized * bulletSpeed;
     }
 }

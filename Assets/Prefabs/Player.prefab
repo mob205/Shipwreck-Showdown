@@ -165,6 +165,7 @@ MonoBehaviour:
   _acceleration: 250
   _maxSpeed: 5
   <CameraAngle>k__BackingField: {fileID: 7309223250256450129}
+  <CameraSize>k__BackingField: 5
 --- !u!212 &5856277181286010209
 SpriteRenderer:
   m_ObjectHideFlags: 0

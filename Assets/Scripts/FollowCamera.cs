@@ -8,11 +8,13 @@ public class FollowCamera : MonoBehaviour
 {
     private PlayerController _player;
     private float _startZ;
+    private Camera _camera;
 
     void Start()
     {
         _player = PlayerController.LocalController;
         _startZ = transform.position.z;
+        _camera = GetComponent<Camera>();
         if(NetworkServer.active && !NetworkClient.active)
         {
             Destroy(gameObject); // don't need camera on server
@@ -25,6 +27,7 @@ public class FollowCamera : MonoBehaviour
         {
             var cameraPos = _player.CurrentControllable.CameraAngle.position;
             transform.position = new Vector3(cameraPos.x, cameraPos.y, _startZ);
+            _camera.orthographicSize = _player.CurrentControllable.CameraSize;
         }
         else
         {

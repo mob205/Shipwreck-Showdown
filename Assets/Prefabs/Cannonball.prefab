@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 0
+  _attackLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!50 &4753295449350923144
 Rigidbody2D:
   serializedVersion: 4
