@@ -65,7 +65,7 @@ MonoBehaviour:
     m_Bits: 64
   pickup: {fileID: 11400000, guid: bfcc9d4c1207e49b299ea7d94cfa4dc6, type: 2}
   reload: {fileID: 11400000, guid: 5e31d11737e484ab3ae88143f723c510, type: 2}
-  death: {fileID: 0}
+  death: {fileID: 11400000, guid: 49c99cfc938b04b678507add16405903, type: 2}
 --- !u!114 &6270317531912792441
 MonoBehaviour:
   m_ObjectHideFlags: 0
