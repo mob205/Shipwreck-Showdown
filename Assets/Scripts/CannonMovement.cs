@@ -6,6 +6,7 @@ public class CannonMovement : NetworkBehaviour, IControllable
     [Header("Firing")]
     [SerializeField] private Transform _bulletSpawn;
     [SerializeField] private Projectile _cannonPrefab;
+    [SerializeField] private AudioEvent _clip;
     [SerializeField] private int _damage;
     [SerializeField] private float _projectileSpeed;
 
@@ -25,6 +26,12 @@ public class CannonMovement : NetworkBehaviour, IControllable
     private float _rotInput;
     private float _rotOffset;
 
+    private AudioSource _source;
+
+    private void Start()
+    {
+        _source = GetComponent<AudioSource>();
+    }
     private void Update()
     {
         if (!_followTarget) { return; }
@@ -70,6 +77,7 @@ public class CannonMovement : NetworkBehaviour, IControllable
         {
             ShootCannon();
         }
+        _clip.Play(_source);
     }
     
     public void LoadCannon()
