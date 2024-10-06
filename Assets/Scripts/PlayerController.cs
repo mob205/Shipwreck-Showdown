@@ -9,12 +9,15 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float _interactRange;
     [SerializeField] private LayerMask _interactable;
     [SerializeField] private LayerMask _cannonballPickup;
+    [SerializeField] private AudioEvent pickup;
+    [SerializeField] private AudioEvent reload;
 
     public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
 
     private IControllable _defaultControllable;
     private ControlInteractor _usedInteractor;
+    private AudioSource _source;
 
     [SyncVar(hook = nameof(ChangeCannonball))] private bool _hasCannonball;
 
@@ -22,6 +25,8 @@ public class PlayerController : NetworkBehaviour
     {
         _defaultControllable = GetComponent<IControllable>();
         CurrentControllable = _defaultControllable;
+        _source = GetComponent<AudioSource>();
+
     }
     public override void OnStartAuthority()
     {
@@ -42,7 +47,13 @@ public class PlayerController : NetworkBehaviour
     }
     private void ChangeCannonball(bool oldVal, bool newVal)
     {
-        // SFX HERE
+        if(newVal == true)
+        {
+            pickup.Play(_source);
+        }
+        else{
+            reload.Play(_source);
+        }
     }
     public void OnPossess(InputAction.CallbackContext context)
     {
