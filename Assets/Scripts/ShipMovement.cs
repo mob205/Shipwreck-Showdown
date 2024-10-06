@@ -28,6 +28,15 @@ public class ShipMovement : MonoBehaviour, IControllable
 
     private void FixedUpdate()
     {
+        if(_frameInput.y != 0)
+        {
+            _frameInput.y = Mathf.Sign(_frameInput.y);
+        }
+        if(_frameInput.x != 0)
+        {
+            _frameInput.x = Mathf.Sign(_frameInput.x);
+        }
+
         if (_frameInput == Vector2.zero)
         {
             _frameVelocity = Vector2.MoveTowards(_frameVelocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);

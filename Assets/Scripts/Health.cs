@@ -38,7 +38,6 @@ public class Health : NetworkBehaviour
     private void StartDeath()
     {
         OnDeath?.Invoke(this);
-        NetworkServer.Destroy(gameObject);
     }
 }
 
