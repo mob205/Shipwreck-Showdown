@@ -26,6 +26,7 @@ public class PlayerController : NetworkBehaviour
         _defaultControllable = GetComponent<IControllable>();
         CurrentControllable = _defaultControllable;
         _source = GetComponent<AudioSource>();
+        GetComponent<Health>().OnDeath.AddListener(OnDeath);
 
     }
     public override void OnStartAuthority()
@@ -33,6 +34,11 @@ public class PlayerController : NetworkBehaviour
         base.OnStartAuthority();
         GetComponent<PlayerInput>().enabled = true;
         LocalController = this;
+    }
+    
+    private void OnDeath(Health health)
+    {
+        NetworkServer.Destroy(gameObject);
     }
     public void OnMove(InputAction.CallbackContext context)
     {

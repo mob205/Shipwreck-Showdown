@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4416298277806173803}
   - component: {fileID: 6670993539926719352}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tentacle (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2134483755775211947}
   - component: {fileID: 6039965209908045160}
-  m_Layer: 0
+  - component: {fileID: 5096689790693749966}
+  m_Layer: 7
   m_Name: Tentacle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +171,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5096689790693749966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606948879844117458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0}
 --- !u!1 &665949691377722258
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +197,10 @@ GameObject:
   - component: {fileID: 704614113840990012}
   - component: {fileID: 6871140770141354192}
   - component: {fileID: 1610053911115131792}
-  m_Layer: 0
+  - component: {fileID: 2431583406926934343}
+  - component: {fileID: 5589917153247982274}
+  - component: {fileID: 8753340438288836186}
+  m_Layer: 7
   m_Name: Kraken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +290,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665949691377722258}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -349,9 +366,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dfa1f17e1324575ba47fd25c71c51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrontTarget: {fileID: 0}
-  BackTarget: {fileID: 0}
-  speed: 3
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  speed: 5
+  fireCooldown: 1
+  bulletPrefab: {fileID: 2764340150656269766, guid: 7718dd2653a9040609fd375da08680f9, type: 3}
+  bulletSpeed: 10
+  fireSpots:
+  - {fileID: 8115677029676008318}
+  - {fileID: 4319359375952052036}
+  - {fileID: 5222930261763518706}
+  - {fileID: 2323998505187339849}
+  - {fileID: 112687997872115924}
+  - {fileID: 4033053645577101564}
+  - {fileID: 3741856360230686865}
+  - {fileID: 2692199677073385792}
+--- !u!114 &2431583406926934343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665949691377722258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c264c1e5a4350e408db54774b22436e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  <MaxHealth>k__BackingField: 25
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5589917153247982274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665949691377722258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3117557040
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &8753340438288836186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665949691377722258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 5764265765301632468}
+  syncPosition: 1
+  syncRotation: 0
+  syncScale: 0
+  onlySyncOnChange: 0
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 0
+  interpolateScale: 0
+  coordinateSpace: 0
+  timelineOffset: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!1 &2026406175681855591
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +463,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8150858529516614603}
-  m_Layer: 0
+  - component: {fileID: 5222930261763518706}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,6 +486,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2134483755775211947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5222930261763518706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026406175681855591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: -1}
 --- !u!1 &2343600127852086614
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +509,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8402068104396403270}
   - component: {fileID: 6063921071158385265}
-  m_Layer: 0
+  - component: {fileID: 399287901914187008}
+  m_Layer: 7
   m_Name: Tentacle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,6 +585,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &399287901914187008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2343600127852086614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0}
 --- !u!1 &2455029687280808574
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 739540072098570941}
   - component: {fileID: 5483687680559401435}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tentacle (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +692,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6968680884575027554}
-  m_Layer: 0
+  - component: {fileID: 2323998505187339849}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,6 +715,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8402068104396403270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2323998505187339849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3889462277606038638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: -1}
 --- !u!1 &4529071610290397202
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9034103292142750385}
   - component: {fileID: 3826160235249998903}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tentacle (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,7 +822,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6773356928645756609}
-  m_Layer: 0
+  - component: {fileID: 3741856360230686865}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -700,6 +845,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4416298277806173803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3741856360230686865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027385617107668848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 1}
 --- !u!1 &5385134652437905931
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +867,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3877777174947643362}
-  m_Layer: 0
+  - component: {fileID: 2692199677073385792}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,6 +890,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9034103292142750385}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2692199677073385792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385134652437905931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 1}
 --- !u!1 &5627131390436183702
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +913,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3214152313655656059}
   - component: {fileID: 1127493185896453320}
-  m_Layer: 0
+  - component: {fileID: 7829821096811046039}
+  m_Layer: 7
   m_Name: Tentacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,6 +989,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7829821096811046039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627131390436183702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: -1}
 --- !u!1 &5926758204315819024
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +1011,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9132549699867441293}
-  m_Layer: 0
+  - component: {fileID: 112687997872115924}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -847,6 +1034,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 739540072098570941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &112687997872115924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926758204315819024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: -1, y: 0}
 --- !u!1 &6611067920758386352
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +1056,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8484558996614071678}
-  m_Layer: 0
+  - component: {fileID: 4033053645577101564}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,6 +1079,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8419906828612212960}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4033053645577101564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6611067920758386352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: -1, y: 0}
 --- !u!1 &6682922347018173322
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +1101,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8085546393430237354}
-  m_Layer: 0
+  - component: {fileID: 4319359375952052036}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -909,6 +1124,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4390687048125977272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4319359375952052036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682922347018173322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0}
 --- !u!1 &7501800354074036710
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,7 +1147,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4390687048125977272}
   - component: {fileID: 5343006575794501687}
-  m_Layer: 0
+  - component: {fileID: 2722963581410610241}
+  m_Layer: 7
   m_Name: Tentacle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -994,6 +1223,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2722963581410610241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501800354074036710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: -1}
 --- !u!1 &8351719144042127874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8419906828612212960}
   - component: {fileID: 2368309260057280338}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tentacle (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,7 +1330,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9010832504772927620}
-  m_Layer: 0
+  - component: {fileID: 8115677029676008318}
+  m_Layer: 7
   m_Name: FireSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1110,3 +1353,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3214152313655656059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8115677029676008318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9077191114365932051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d2437eb39b947cf86fe8eec39964cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0}

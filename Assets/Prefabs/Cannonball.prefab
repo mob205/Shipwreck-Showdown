@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c212c16af23719c41805bbd1942875ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 0
+  <Damage>k__BackingField: 1
+  _attackLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!50 &4753295449350923144
 Rigidbody2D:
   serializedVersion: 4

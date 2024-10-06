@@ -12,6 +12,8 @@ public class Health : NetworkBehaviour
 
     public UnityEvent<Health, int, GameObject> OnDamage;
 
+    private bool _hasDied;
+
     public override void OnStartServer()
     {
         CurrentHealth = MaxHealth;
@@ -25,8 +27,9 @@ public class Health : NetworkBehaviour
         {
             OnDamage?.Invoke(this, amount, attacker);
         }
-        if(CurrentHealth <= 0)
+        if(CurrentHealth <= 0 && !_hasDied)
         {
+            _hasDied = true;
             StartDeath();
         }
     }
@@ -35,7 +38,6 @@ public class Health : NetworkBehaviour
     private void StartDeath()
     {
         OnDeath?.Invoke(this);
-        NetworkServer.Destroy(gameObject);
     }
 }
 

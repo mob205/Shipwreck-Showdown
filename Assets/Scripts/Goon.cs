@@ -37,6 +37,7 @@ public class Goon : MonoBehaviour {
     private void OnDeath(Health health)
     {
         ControlInteractor.OnPossessed.RemoveListener(OnNearbyPossession);
+        NetworkServer.Destroy(gameObject);
     }
     private void OnDamage(Health health, int amount, GameObject attacker)
     {
