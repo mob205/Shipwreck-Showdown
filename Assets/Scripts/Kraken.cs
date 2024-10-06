@@ -11,6 +11,7 @@ public class Kraken : NetworkBehaviour
     [SerializeField] private Projectile bulletPrefab;
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private FireSpot[] fireSpots;
+    [SerializeField] private float bulletLifetime = 20f;
     bool isAttacking = false;
 
     private Health _health;
@@ -188,5 +189,6 @@ public class Kraken : NetworkBehaviour
     {
         var bullet = Instantiate(bulletPrefab, pos, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = dir.normalized * bulletSpeed;
+        Destroy(bullet, bulletLifetime);
     }
 }

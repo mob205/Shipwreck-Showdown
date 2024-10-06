@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6727643679112853582}
   - component: {fileID: 8479120400815663013}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,9 @@ GameObject:
   - component: {fileID: 8858208004756143938}
   - component: {fileID: 8057341956751512553}
   - component: {fileID: 2400294287923462438}
-  m_Layer: 0
+  - component: {fileID: 3769211143797430554}
+  - component: {fileID: 2694335669742741955}
+  m_Layer: 8
   m_Name: Zoomed Out Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,13 +260,103 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  <MaxHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 25
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
+--- !u!61 &3769211143797430554
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165136494015822132}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &2694335669742741955
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165136494015822132}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.020851135}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.7544985, y: 2.7725067}
+  m_EdgeRadius: 0
 --- !u!1 &2686226063819066112
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1385654392213323821}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cannon Position (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6284611816360357746}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cannon Position (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7019763268036847992}
   - component: {fileID: 2094161651573066598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5954238993243976586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Front Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8638801505872037670}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Back Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8227273173887145279}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cannon Position (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5760826645169378042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Close Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2276669552203199919}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cannon Position (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4812765250092650527}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}

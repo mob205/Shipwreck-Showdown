@@ -15,7 +15,6 @@ public class Projectile : MonoBehaviour
         {
             if(NetworkServer.active)
             {
-                Debug.Log("Damaging");
                 health.ModifyHealth(-Damage, Shooter);
             }
             Destroy(gameObject);
