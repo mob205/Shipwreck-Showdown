@@ -12,6 +12,7 @@ public class ShipMovement : MonoBehaviour, IControllable
     [SerializeField] private NetworkTransformReliable _transform;
 
     [field: SerializeField] public Transform CameraAngle { get; private set; }
+    [field: SerializeField] public float CameraSize { get; private set; }
     public bool RequiresAuthority { get; } = true;
 
     public GameObject Object { get { return gameObject; } }
