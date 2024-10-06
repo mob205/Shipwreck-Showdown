@@ -35,9 +35,6 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     {
         _rb = GetComponent<Rigidbody2D>();
         _source = GetComponent<AudioSource>();
-        if(sword != null){
-            Debug.Log("feet");
-        }
     }
 
     private void FixedUpdate()

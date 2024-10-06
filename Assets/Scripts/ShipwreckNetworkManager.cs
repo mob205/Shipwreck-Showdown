@@ -11,6 +11,8 @@ public class ShipwreckNetworkManager : NetworkManager
     public static event Action OnServerStarted;
 
     public static ShipwreckNetworkManager Instance;
+
+    private int _color = 0;
     public override void Awake()
     {
         base.Awake();
@@ -24,6 +26,7 @@ public class ShipwreckNetworkManager : NetworkManager
     {
         base.OnServerAddPlayer(conn);
         OnPlayerConnect?.Invoke(conn.identity);
+        conn.identity.gameObject.GetComponent<PlayerController>().AssignColor(_color++);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
@@ -40,9 +43,10 @@ public class ShipwreckNetworkManager : NetworkManager
     [Server]
     public void ReloadScene()
     {
-        ServerChangeScene(onlineScene);
-
+        _color = 0;
         OnPlayerConnect = null;
         OnPlayerDisconnect = null;
+
+        ServerChangeScene(onlineScene);
     }
 }

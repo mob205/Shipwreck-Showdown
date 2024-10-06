@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
+using UnityEditor.Animations;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -13,14 +14,22 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private AudioEvent reload;
     [SerializeField] private AudioEvent death;
 
+    [SerializeField] private AnimatorController[] _animatorControllers;
+    [SerializeField] private Animator _animator;
+
     public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
 
     private IControllable _defaultControllable;
     private ControlInteractor _usedInteractor;
     private AudioSource _source;
+    private SpriteRenderer _spriteRenderer;
+
+    private int _color;
 
     [SyncVar(hook = nameof(ChangeCannonball))] private bool _hasCannonball;
+
+    [SyncVar(hook = nameof(OnInputChange))] private Vector2 _moveInput;
 
     private void Awake()
     {
@@ -28,16 +37,49 @@ public class PlayerController : NetworkBehaviour
         CurrentControllable = _defaultControllable;
         _defaultControllable.CameraAngle = GameObject.FindGameObjectWithTag("DefaultCam").transform;
         _source = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         GetComponent<Health>().OnDeath.AddListener(OnDeath);
 
     }
+
     public override void OnStartAuthority()
     {
         base.OnStartAuthority();
         GetComponent<PlayerInput>().enabled = true;
         LocalController = this;
     }
-    
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+    }
+
+    [Server]
+    public void AssignColor(int color)
+    {
+        RpcAssignColor(color);
+    }
+
+    [ClientRpc]
+    private void RpcAssignColor(int color)
+    {
+        //_animator.runtimeAnimatorController = _animatorControllers[color % _animatorControllers.Length];
+    }
+
+    private void OnInputChange(Vector2 oldVal, Vector2 newVal)
+    {
+        if(newVal.x < 0)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        else if(newVal.x > 0)
+        {
+            _spriteRenderer.flipX = false;
+        }
+        _animator.SetInteger("MoveX", Mathf.CeilToInt(newVal.x));
+    }
+
     private void OnDeath(Health health)
     {
         RpcOnDeath(transform.position);
@@ -55,7 +97,9 @@ public class PlayerController : NetworkBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        CurrentControllable.Move(context.ReadValue<Vector2>());
+        Vector2 input = context.ReadValue<Vector2>();
+        CurrentControllable.Move(input);
+        _moveInput = input; // Sync input to all clients for animation
     }
     public void OnFire(InputAction.CallbackContext context)
     {
