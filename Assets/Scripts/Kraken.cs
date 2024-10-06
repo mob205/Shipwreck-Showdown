@@ -28,10 +28,9 @@ public class Kraken : NetworkBehaviour
     private Transform closestTarget;
     private AudioSource _source;
 
-    private void Start()
+    private void Awake()
     {
         _source = GetComponent<AudioSource>();
-        InvokeRepeating("UpdateClosestTarget", 0f, 1f);
         _health = GetComponent<Health>();
         isAttacking = false;
     }
@@ -47,6 +46,7 @@ public class Kraken : NetworkBehaviour
         base.OnStartServer();
         ControlInteractor.OnPossessed.AddListener(OnPossessed);
         _health.OnDeath.AddListener(OnDeath);
+        InvokeRepeating("UpdateClosestTarget", 0f, 1f);
     }
 
     private void OnPossessed(ControlInteractor interactor)

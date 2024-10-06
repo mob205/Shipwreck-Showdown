@@ -11,10 +11,9 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         _slider = GetComponent<Slider>();
-        _health.OnDamage.AddListener(OnDamage);
     }
 
-    private void OnDamage(Health health, int amount, GameObject attacker)
+    private void Update()
     {
         _slider.value = ((float) _health.CurrentHealth / _health.MaxHealth);
     }

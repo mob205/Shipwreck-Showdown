@@ -80,7 +80,7 @@ MonoBehaviour:
   headlessStartMode: 1
   editorAutoStart: 0
   sendRate: 60
-  offlineScene: 
+  offlineScene: Assets/Menu.unity
   onlineScene: Assets/Scenes/Test Level.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 7101008775638259958}
@@ -92,7 +92,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 4844725178673995766, guid: 8db2a7a5956446d47adb3747cc37b051, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 2229041110476019148, guid: 4a11c4a497d2f497f93373d4118517a4, type: 3}
   exceptionsDisconnect: 0
   snapshotSettings:
     bufferTimeMultiplier: 2

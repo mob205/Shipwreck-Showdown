@@ -248,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 8544662162658122929}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraSize>k__BackingField
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraAngle>k__BackingField
@@ -1317,7 +1317,7 @@ PrefabInstance:
       objectReference: {fileID: 8544662162658122930}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraSize>k__BackingField
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraAngle>k__BackingField
@@ -8645,7 +8645,7 @@ PrefabInstance:
       objectReference: {fileID: 8544662162658122928}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraSize>k__BackingField
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraAngle>k__BackingField
@@ -81341,7 +81341,7 @@ PrefabInstance:
       objectReference: {fileID: 8544662162658122931}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraSize>k__BackingField
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -5839053378545258389, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
       propertyPath: <CameraAngle>k__BackingField
@@ -82889,46 +82889,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5220946340507821891, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: playerSpawnMethod
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5220946340507821891, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5220946340507821891, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 4040151553625054471, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
-    - target: {fileID: 5220946340507821891, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 6109757573727203038, guid: 4c4f898f8e7797b41b70880c1615bc51, type: 3}
-    - target: {fileID: 5220946340507821891, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.data[2]
-      value: 
-      objectReference: {fileID: 2229041110476019148, guid: 4a11c4a497d2f497f93373d4118517a4, type: 3}
-    - target: {fileID: 5220946340507821891, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.data[3]
-      value: 
-      objectReference: {fileID: 2165136494015822132, guid: 5de4c6eb0a86bdd4bb391ee18dab21e4, type: 3}
-    - target: {fileID: 5220946340507821891, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.data[4]
-      value: 
-      objectReference: {fileID: 2165136494015822132, guid: 5de4c6eb0a86bdd4bb391ee18dab21e4, type: 3}
-    - target: {fileID: 8120570989221992946, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: offlineScene
-      value: Assets/Menu.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 8120570989221992946, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8120570989221992946, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: spawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 2229041110476019148, guid: 4a11c4a497d2f497f93373d4118517a4, type: 3}
     - target: {fileID: 8767203017808340201, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
       propertyPath: m_Name
       value: Network Manager
