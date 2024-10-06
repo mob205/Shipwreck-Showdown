@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Splash
   m_EditorClassIdentifier: 
   Clips:
-  - {fileID: 8300000, guid: dc78989328352a24190fec74dc4d7c77, type: 3}
+  - {fileID: 8300000, guid: 55b984c71744540b1b1800bc1edaaad1, type: 3}
   MinPitch: 0.85
   MaxPitch: 1.15
   MinVolume: 0.65
