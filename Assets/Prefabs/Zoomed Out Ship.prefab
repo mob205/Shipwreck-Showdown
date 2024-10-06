@@ -224,6 +224,7 @@ MonoBehaviour:
   _turnRate: 45
   _transform: {fileID: 0}
   <CameraAngle>k__BackingField: {fileID: 0}
+  <CameraSize>k__BackingField: 5
 --- !u!114 &8057341956751512553
 MonoBehaviour:
   m_ObjectHideFlags: 0

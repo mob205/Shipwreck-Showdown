@@ -19,6 +19,7 @@ public class CannonMovement : NetworkBehaviour, IControllable
 
     [field: SerializeField] public bool RequiresAuthority { get; } = false;
     [field: SerializeField] public Transform CameraAngle { get; private set; }
+    [field: SerializeField] public float CameraSize { get; private set; }
 
     public GameObject Object { get { return gameObject; } }
 

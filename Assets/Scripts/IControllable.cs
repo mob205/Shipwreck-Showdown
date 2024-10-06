@@ -8,6 +8,7 @@ public interface IControllable
 
     public Transform CameraAngle { get; }
 
+    public float CameraSize { get; }
     public bool RequiresAuthority { get; }
     public GameObject Object { get; }
 }
