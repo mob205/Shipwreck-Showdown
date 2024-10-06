@@ -9,8 +9,6 @@ public class ShipMovement : MonoBehaviour, IControllable
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _turnRate;
 
-    [SerializeField] private NetworkTransformReliable _transform;
-
     [field: SerializeField] public Transform CameraAngle { get; set; }
     [field: SerializeField] public float CameraSize { get; private set; }
     [field: SerializeField] public bool DoSway { get; } = false;
