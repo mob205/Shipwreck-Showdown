@@ -154,7 +154,11 @@ MonoBehaviour:
   reload: {fileID: 11400000, guid: 5e31d11737e484ab3ae88143f723c510, type: 2}
   death: {fileID: 11400000, guid: 49c99cfc938b04b678507add16405903, type: 2}
   _cannonballIndicator: {fileID: 6214460435450098011}
-  _animatorControllers: []
+  _animatorControllers:
+  - {fileID: 9100000, guid: b04aff567728a304ead617dbe9cddb4c, type: 2}
+  - {fileID: 9100000, guid: bfd5b9d7e3c2a1244a428e8c99dd4f7a, type: 2}
+  - {fileID: 9100000, guid: e9e51065a29a6bd4d895cd27194a165a, type: 2}
+  - {fileID: 9100000, guid: b421e6dfe4f631b4899b5f0bb0615497, type: 2}
   _animator: {fileID: 0}
 --- !u!114 &6270317531912792441
 MonoBehaviour:

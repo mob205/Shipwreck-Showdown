@@ -17,7 +17,6 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private SpriteRenderer _cannonballIndicator;
 
     [SerializeField] private AnimatorController[] _animatorControllers;
-    [SerializeField] private Animator _animator;
 
     public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
@@ -26,6 +25,7 @@ public class PlayerController : NetworkBehaviour
     private ControlInteractor _usedInteractor;
     private AudioSource _source;
     private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
 
     private int _color;
 
@@ -65,6 +65,7 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     private void RpcAssignColor(int color)
     {
+        Debug.Log($"{gameObject.name} assigned {color}");
         //_animator.runtimeAnimatorController = _animatorControllers[color % _animatorControllers.Length];
     }
 
