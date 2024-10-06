@@ -20,14 +20,12 @@ public class ControlInteractor : NetworkBehaviour
     }
     public override void OnStartClient()
     {
-        if (Interactors == null)
+        // inefficient because it calls once on each interactor but i dont have time to fix it
+        Interactors = new Dictionary<uint, ControlInteractor>();
+        var interactors = FindObjectsOfType<ControlInteractor>();
+        foreach (var interactor in interactors)
         {
-            Interactors = new Dictionary<uint, ControlInteractor>();
-            var interactors = FindObjectsOfType<ControlInteractor>();
-            foreach (var interactor in interactors)
-            {
-                Interactors.Add(interactor.netId, interactor);
-            }
+            Interactors.Add(interactor.netId, interactor);
         }
     }
 

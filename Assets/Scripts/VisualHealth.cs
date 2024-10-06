@@ -14,21 +14,6 @@ public class VisualHealth : MonoBehaviour
     public Sprite filledHeart, unfilledHeart;
     public Image[] hearts;
 
-    private void Awake() 
-    {
-
-        if (hearts == null || hearts.Length == 0)
-        {
-            Debug.LogError("feet");
-        }
-        
-    }
-
-    private void Start()
-    {
-
-    }
-
     public void SetImage(int currentHealth, int maxHealth)
     {
         for (int i = 0; i < hearts.Length; i++)
