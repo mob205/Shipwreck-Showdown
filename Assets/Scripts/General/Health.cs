@@ -36,6 +36,12 @@ public class Health : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
+    private void RpcOnDamage(int amount)
+    {
+        OnDamage?.Invoke(this, amount, null);
+    }
+
     [Server]
     private void StartDeath()
     {

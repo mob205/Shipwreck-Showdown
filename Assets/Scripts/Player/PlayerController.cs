@@ -74,7 +74,6 @@ public class PlayerController : NetworkBehaviour
     [Client]
     private void OnColorChange(int oldColor, int color)
     {
-        Debug.Log(color % _animatorControllers.Length);
         _animator.runtimeAnimatorController = _animatorControllers[color % _animatorControllers.Length];
     }
 

@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Mirror;
 
 public class VisualHealth : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class VisualHealth : MonoBehaviour
 
     public Sprite filledHeart, unfilledHeart;
     public Image[] hearts;
+    public Image damageFlashPanel;
+
+    public float damageFlashDuration;
 
     public void SetImage(int currentHealth, int maxHealth)
     {
@@ -31,29 +35,28 @@ public class VisualHealth : MonoBehaviour
 
     public void TakeDamage(Health health, int amount, GameObject attacker)
     {
-
         SetImage(health.CurrentHealth, health.MaxHealth);
+        damageFlashPanel.enabled = true;
 
+        Invoke(nameof(DisableFlashPanel), damageFlashDuration);
+    }
+
+    private void DisableFlashPanel()
+    {
+        damageFlashPanel.enabled = false;
     }
 
     private void Update() 
     {
-
         if(controller == null)
         {
-
             controller = PlayerController.LocalController;
             if(!controller) { return; }
             playerHealth = controller.GetComponent<Health>();
 
             playerHealth.OnDamage.AddListener((health, amount, attacker) => TakeDamage(health, amount, attacker));
-
         }
-
-        SetImage(playerHealth.CurrentHealth, playerHealth.MaxHealth);
-        
     }
-
 }
 
 public enum HeartStats
