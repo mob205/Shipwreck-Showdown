@@ -15,6 +15,7 @@ public class PlayerController : NetworkBehaviour
 
     [SerializeField] private SpriteRenderer _cannonballIndicator;
 
+    private bool _allowInput = true;
 
     public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
@@ -102,17 +103,19 @@ public class PlayerController : NetworkBehaviour
             deathAudio.PlayOneShot(position);
         }
         _spriteRenderer.enabled = false;
+        _allowInput = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if(!_allowInput) { return; }
         Vector2 input = context.ReadValue<Vector2>();
         CurrentControllable.Move(input);
         CmdOnInputChange(input);
     }
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && _allowInput)
         {
             CurrentControllable.Fire();
         }
@@ -129,9 +132,10 @@ public class PlayerController : NetworkBehaviour
             _cannonballIndicator.enabled = false;
         }
     }
+    [Client]
     public void OnPossess(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && _allowInput)
         {
             CmdTryPossess();
         }
@@ -231,6 +235,7 @@ public class PlayerController : NetworkBehaviour
         CurrentControllable = _defaultControllable;
     }
 
+    [Server]
     public Collider2D GetClosestCollider(Collider2D[] colliders)
     {
         Collider2D best = null;
