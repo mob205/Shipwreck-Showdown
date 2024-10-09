@@ -7,7 +7,6 @@ public class CannonMovement : NetworkBehaviour, IControllable
     [SerializeField] private Transform _bulletSpawn;
     [SerializeField] private Projectile _cannonPrefab;
     [SerializeField] private AudioEvent _clip;
-    [SerializeField] private int _damage;
     [SerializeField] private float _projectileSpeed;
 
     [Header("Cannon controls")]
@@ -91,7 +90,6 @@ public class CannonMovement : NetworkBehaviour, IControllable
     private void ShootCannon()
     {
         var cannonball = Instantiate(_cannonPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
-        cannonball.Damage = _damage;
         cannonball.GetComponent<Rigidbody2D>().velocity = _bulletSpawn.right * _projectileSpeed;
     }
 

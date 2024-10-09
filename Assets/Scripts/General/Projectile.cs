@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     {
         if ((_attackLayer & (1 << collision.gameObject.layer)) != 0 && collision.TryGetComponent(out Health health))
         {
-            if(NetworkServer.active)
+            if (NetworkServer.active)
             {
                 health.ModifyHealth(-Damage, Shooter);
             }

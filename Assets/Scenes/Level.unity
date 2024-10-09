@@ -307,25 +307,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb5273f1a10636b4aba4656dad7e820b, type: 3}
---- !u!1 &10420689 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8767203017808340201, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-  m_PrefabInstance: {fileID: 4130725618634303262}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &10420693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 10420689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsetX: 0
-  offsetY: 0
 --- !u!1 &59073784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,8 +2008,8 @@ Transform:
   m_GameObject: {fileID: 874046074}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.7440004, y: 1.784, z: 0}
-  m_LocalScale: {x: 1.0100001, y: 0.9614639, z: 1}
+  m_LocalPosition: {x: -6.7440004, y: 1.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1418062651}
@@ -8736,10 +8717,6 @@ PrefabInstance:
     - target: {fileID: 665949691377722258, guid: a55f5b7cd322f4f64abbec8d24169765, type: 3}
       propertyPath: m_Name
       value: Kraken
-      objectReference: {fileID: 0}
-    - target: {fileID: 1610053911115131792, guid: a55f5b7cd322f4f64abbec8d24169765, type: 3}
-      propertyPath: bulletLifetime
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5589917153247982274, guid: a55f5b7cd322f4f64abbec8d24169765, type: 3}
       propertyPath: sceneId
@@ -82047,7 +82024,7 @@ Transform:
   m_GameObject: {fileID: 1695430010}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4319992, y: 0.816, z: 0}
+  m_LocalPosition: {x: -0.59, y: 0.816, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -83320,14 +83297,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8120570989221992946, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: onlineScene
-      value: Assets/Scenes/Level.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 8120570989221992946, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      propertyPath: offlineScene
-      value: Assets/Scenes/Menu.unity
-      objectReference: {fileID: 0}
     - target: {fileID: 8767203017808340201, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
       propertyPath: m_Name
       value: Network Manager
@@ -83335,10 +83304,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8767203017808340201, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 10420693}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0113eb413fc21bd498ddbba0bc75fad4, type: 3}
 --- !u!1001 &4605159993308285399
 PrefabInstance:

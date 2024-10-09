@@ -362,7 +362,7 @@ MonoBehaviour:
   - {fileID: 4033053645577101564}
   - {fileID: 3741856360230686865}
   - {fileID: 2692199677073385792}
-  bulletLifetime: 1
+  bulletLifetime: 8
   damageFlashDuration: 0.5
   minSfxDelay: 15
   maxSfxDelay: 25
@@ -383,7 +383,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  <MaxHealth>k__BackingField: 25
+  <MaxHealth>k__BackingField: 15
   OnDeath:
     m_PersistentCalls:
       m_Calls: []

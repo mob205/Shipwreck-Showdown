@@ -272,9 +272,11 @@ public class Kraken : NetworkBehaviour
     [ClientRpc]
     private void RpcSpawnBullet(Vector2 pos, Vector2 direction)
     {
-        SpawnBullet(pos, direction);
+        if(!NetworkServer.activeHost)
+        {
+            SpawnBullet(pos, direction);
+        }
     }
-
 
     private void SpawnBullet(Vector2 pos, Vector2 dir)
     {
