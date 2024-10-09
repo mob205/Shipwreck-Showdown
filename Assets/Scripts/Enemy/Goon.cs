@@ -14,8 +14,10 @@ public class Goon : NetworkBehaviour {
     private AudioSource _audioSource;
     private SpriteRenderer _spriteRenderer;
 
-    [SerializeField] private float damageCooldown = 1f; 
+    [SerializeField] private float damageCooldown = 1f;
     private float damageTimer = 0f;
+
+    [SerializeField] private float _damageFlashDuration;
 
     // Function to initialize the enemy
     private void Awake() {
@@ -78,6 +80,13 @@ public class Goon : NetworkBehaviour {
         {
             _damageAudio.Play(_audioSource);
         }
+        _spriteRenderer.color = Color.red;
+        Invoke(nameof(ResetColor), _damageFlashDuration);
+    }
+
+    private void ResetColor()
+    {
+        _spriteRenderer.color = Color.white;
     }
 
     // Function to update the enemy
@@ -142,7 +151,7 @@ public class Goon : NetworkBehaviour {
     
     // Function to check if the enemy is colliding with the player
     private void OnCollisionStay2D(Collision2D other) {
-        if (other.gameObject.tag == "Player" && NetworkServer.active) {
+        if (other.gameObject.tag == "Player" && NetworkServer.active && !_health.HasDied) {
             if (damageTimer <= 0) 
             {
                 other.gameObject.GetComponent<Health>().ModifyHealth(-damage, gameObject);

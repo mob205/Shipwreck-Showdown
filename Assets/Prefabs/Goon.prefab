@@ -112,6 +112,7 @@ MonoBehaviour:
   _deathAudio: {fileID: 11400000, guid: db75786f554e2423488e41087048094a, type: 2}
   _damageAudio: {fileID: 11400000, guid: 3293e25623b578f42bbea96c5659b864, type: 2}
   damageCooldown: 1.25
+  _damageFlashDuration: 0.5
 --- !u!50 &2447062181881798529
 Rigidbody2D:
   serializedVersion: 4

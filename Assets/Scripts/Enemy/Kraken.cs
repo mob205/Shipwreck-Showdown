@@ -12,6 +12,7 @@ public class Kraken : NetworkBehaviour
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private FireSpot[] fireSpots;
     [SerializeField] private float bulletLifetime = 20f;
+    [SerializeField] private float damageFlashDuration;
 
     [SerializeField] private float minSfxDelay;
     [SerializeField] private float maxSfxDelay;
@@ -27,11 +28,13 @@ public class Kraken : NetworkBehaviour
     private Health _health;
     private Transform closestTarget;
     private AudioSource _source;
+    private SpriteRenderer[] _spriteRenderers;
 
     private void Awake()
     {
         _source = GetComponent<AudioSource>();
         _health = GetComponent<Health>();
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         isAttacking = false;
     }
 
@@ -65,6 +68,29 @@ public class Kraken : NetworkBehaviour
         if(death)
         {
             death.PlayOneShot(position);
+        }
+    }
+
+    public void OnDamage(Health health, int amount, GameObject attacker)
+    {   
+        RpcOnDamage();
+    }
+
+
+    [ClientRpc]
+    private void RpcOnDamage()
+    {
+        foreach(var sprite in _spriteRenderers)
+        {
+            sprite.color = Color.red;
+        }
+        Invoke(nameof(ResetSpriteColor), damageFlashDuration);
+    }
+    private void ResetSpriteColor()
+    {
+        foreach(var sprite in _spriteRenderers)
+        {
+            sprite.color = Color.white;
         }
     }
 

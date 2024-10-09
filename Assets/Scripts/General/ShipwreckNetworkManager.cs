@@ -16,23 +16,23 @@ public class ShipwreckNetworkManager : NetworkManager
     public override void Awake()
     {
         base.Awake();
-        if(Instance)
-        {
-            Destroy(gameObject);
-        }
-        Instance = this;
+        Instance = (ShipwreckNetworkManager) singleton;
     }
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-        OnPlayerConnect?.Invoke(conn.identity);
         conn.identity.gameObject.GetComponent<PlayerController>().AssignColor(_color++);
+        OnPlayerConnect?.Invoke(conn.identity);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         OnPlayerDisconnect?.Invoke(conn.identity);
         base.OnServerDisconnect(conn);
+    }
+    public override void Update()
+    {
+        base.Update();
     }
     public override void OnStartServer()
     {

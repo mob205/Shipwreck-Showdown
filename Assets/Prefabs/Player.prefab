@@ -255,7 +255,7 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  _attackRange: 3
+  _attackRange: 2
   _damage: 1
   _fireRate: 2
   sword: {fileID: 11400000, guid: 430fe2349fb5e11478b4fbe49a93979a, type: 2}

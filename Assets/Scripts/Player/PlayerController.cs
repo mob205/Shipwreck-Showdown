@@ -26,10 +26,12 @@ public class PlayerController : NetworkBehaviour
     public IControllable CurrentControllable { get; private set; }
 
     private IControllable _defaultControllable;
+
     private ControlInteractor _usedInteractor;
     private AudioSource _source;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
+    private Rigidbody2D _rb;
 
     private int _color;
 
@@ -41,9 +43,11 @@ public class PlayerController : NetworkBehaviour
         _defaultControllable = GetComponent<IControllable>();
         CurrentControllable = _defaultControllable;
         _defaultControllable.CameraAngle = GameObject.FindGameObjectWithTag("DefaultCam").transform;
+
         _source = GetComponent<AudioSource>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody2D>();
 
         GetComponent<Health>().OnDeath.AddListener(OnDeath);
 
@@ -78,6 +82,7 @@ public class PlayerController : NetworkBehaviour
     {
         Unpossess();
         RpcOnDeath(transform.position);
+        _rb.simulated = false;
     }
 
     [ClientRpc]
@@ -89,6 +94,8 @@ public class PlayerController : NetworkBehaviour
         }
         _spriteRenderer.enabled = false;
         _allowInput = false;
+        _defaultControllable.OnReleaseControl();
+        _rb.simulated = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
