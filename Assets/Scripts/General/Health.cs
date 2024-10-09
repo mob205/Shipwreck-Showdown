@@ -28,6 +28,7 @@ public class Health : NetworkBehaviour
         if(amount < 0)
         {
             OnDamage?.Invoke(this, amount, attacker);
+            RpcOnDamage(amount);
         }
         if(CurrentHealth <= 0 && !HasDied)
         {

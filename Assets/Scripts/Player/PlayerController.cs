@@ -1,8 +1,6 @@
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
-using UnityEditor.Animations;
-using System.Runtime.CompilerServices;
 
 public class PlayerController : NetworkBehaviour
 {

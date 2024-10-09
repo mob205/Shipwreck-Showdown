@@ -7,6 +7,11 @@ public class EndStateController : NetworkBehaviour
 {
     [SerializeField] private GameObject _gameoverUI;
     [SerializeField] private GameObject _victoryUI;
+    [SerializeField] private AudioSource _music;
+
+    [SerializeField] private AudioEvent _gameoverMusic;
+    [SerializeField] private AudioEvent _victoryMusic;
+
     private int _numPlayersAlive;
 
     public static EndStateController Instance;
@@ -75,12 +80,16 @@ public class EndStateController : NetworkBehaviour
     private void RpcSpawnEndUI()
     {
         _gameoverUI.SetActive(true);
+        _gameoverMusic.Play(_music);
+        _music.loop = false;
     }
 
     [ClientRpc]
     private void RpcSpawnVictoryUI()
     {
         _victoryUI.SetActive(true);
+        _victoryMusic.Play(_music);
+        _music.loop = false;
     }
 
     public void Restart()

@@ -35,7 +35,6 @@ public class VisualHealth : MonoBehaviour
 
     public void TakeDamage(Health health, int amount, GameObject attacker)
     {
-        SetImage(health.CurrentHealth, health.MaxHealth);
         damageFlashPanel.enabled = true;
 
         Invoke(nameof(DisableFlashPanel), damageFlashDuration);
@@ -55,6 +54,10 @@ public class VisualHealth : MonoBehaviour
             playerHealth = controller.GetComponent<Health>();
 
             playerHealth.OnDamage.AddListener((health, amount, attacker) => TakeDamage(health, amount, attacker));
+        }
+        if(playerHealth)
+        {
+            SetImage(playerHealth.CurrentHealth, playerHealth.MaxHealth);
         }
     }
 }

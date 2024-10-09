@@ -29,13 +29,16 @@ public class Goon : NetworkBehaviour {
 
     private void Start()
     {
-        if (!NetworkServer.active)
+        if(NetworkServer.active)
         {
-            Destroy(this);
-            return;
+            _health.OnDamage.AddListener(OnDamage);
+            _health.OnDeath.AddListener(OnDeath);
         }
-        _health.OnDamage.AddListener(OnDamage);
-        _health.OnDeath.AddListener(OnDeath);
+
+        if(!NetworkServer.active)
+        {
+            _health.OnDamage.AddListener(ClientOnDamage);
+        }
 
         ControlInteractor.OnPossessed.AddListener(OnNearbyPossession);
     }
@@ -66,15 +69,13 @@ public class Goon : NetworkBehaviour {
     }
     private void OnDamage(Health health, int amount, GameObject attacker)
     {
-        if(attacker.TryGetComponent(out PlayerController player))
+        if(attacker && attacker.TryGetComponent(out PlayerController player))
         {
             _targetPlayer = player;
         }
-        RpcOnDamage();
     }
 
-    [ClientRpc]
-    private void RpcOnDamage()
+    private void ClientOnDamage(Health health, int amount, GameObject attacker)
     {
         if(_damageAudio)
         {
