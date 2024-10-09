@@ -90,9 +90,8 @@ public class PlayerController : NetworkBehaviour
 
     private void OnDeath(Health health)
     {
+        Unpossess();
         RpcOnDeath(transform.position);
-        _spriteRenderer.enabled = false;
-        enabled = false;
     }
 
     [ClientRpc]
@@ -103,7 +102,6 @@ public class PlayerController : NetworkBehaviour
             deathAudio.PlayOneShot(position);
         }
         _spriteRenderer.enabled = false;
-        enabled = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -158,6 +156,8 @@ public class PlayerController : NetworkBehaviour
         _usedInteractor.Unpossess();
         _usedInteractor = null;
         IsCaptain = false;
+
+        TargetResetControllable(netIdentity.connectionToClient);
     }
     [Command]
     public void CmdTryPossess(NetworkConnectionToClient conn = null)
@@ -165,7 +165,6 @@ public class PlayerController : NetworkBehaviour
         if (_usedInteractor) // Already possessed, so unpossess
         {
             Unpossess();
-            TargetResetControllable(conn);
             return;
         }
 
@@ -182,7 +181,7 @@ public class PlayerController : NetworkBehaviour
 
         if (closest != null && closest.TryGetComponent(out ControlInteractor interactor))
         {
-            if (_hasCannonball && interactor.BoundControllable.TryGetComponent(out CannonMovement cannon))
+            if (_hasCannonball && interactor.BoundControllable.TryGetComponent(out CannonMovement cannon) && !cannon.HasCannonballLoaded)
             {
                 _hasCannonball = false;
                 cannon.LoadCannon();

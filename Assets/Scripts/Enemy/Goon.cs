@@ -62,7 +62,7 @@ public class Goon : NetworkBehaviour {
     // Function to update the enemy
     private void Update() {
         // Only retarget to the closest non-captain player if there's not already a target
-        if(_targetPlayer == null)
+        if(_targetPlayer == null || _targetPlayer.GetComponent<Health>().HasDied)
         {
             FindTargetPlayer();
         }
@@ -93,6 +93,7 @@ public class Goon : NetworkBehaviour {
         float closestDistance = Mathf.Infinity;
 
         foreach (var player in players) {
+            if(player.GetComponent<Health>().HasDied) { continue; }
             float distance = Vector2.Distance(transform.position, player.transform.position);
             if (distance < closestDistance) 
             {

@@ -93,7 +93,6 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     [ClientRpc]
     private void RpcSwingWeapon()
     {
-        Debug.Log("Rpc Swing");
         sword.Play(_source);
         _swordIcon.enabled = true;
         _swordRB.angularVelocity = _swingSpeed;

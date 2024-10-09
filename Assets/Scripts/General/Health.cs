@@ -13,7 +13,7 @@ public class Health : NetworkBehaviour
 
     public UnityEvent<Health, int, GameObject> OnDamage;
 
-    private bool _hasDied;
+    public bool HasDied { get; private set; }
 
     public override void OnStartServer()
     {
@@ -29,9 +29,9 @@ public class Health : NetworkBehaviour
         {
             OnDamage?.Invoke(this, amount, attacker);
         }
-        if(CurrentHealth <= 0 && !_hasDied)
+        if(CurrentHealth <= 0 && !HasDied)
         {
-            _hasDied = true;
+            HasDied = true;
             StartDeath();
         }
     }

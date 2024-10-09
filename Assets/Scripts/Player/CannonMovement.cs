@@ -15,7 +15,8 @@ public class CannonMovement : NetworkBehaviour, IControllable
     [SerializeField] float _turnRate;
     [SerializeField] private float _angleClamp = 30;
 
-    private int _numCannonballsLoaded = 0;
+    //private int _numCannonballsLoaded = 0;
+    public bool HasCannonballLoaded { get; private set; }
 
     [field: SerializeField] public bool RequiresAuthority { get; } = false;
     [field: SerializeField] public Transform CameraAngle { get; set; }
@@ -64,8 +65,8 @@ public class CannonMovement : NetworkBehaviour, IControllable
     [Command(requiresAuthority = false)]
     private void CmdFire()
     {
-        if(_numCannonballsLoaded <= 0) { return; }
-        --_numCannonballsLoaded;
+        if(!HasCannonballLoaded) { return; }
+        HasCannonballLoaded = false;
 
         ShootCannon();
         RpcSimulateFire();
@@ -84,7 +85,7 @@ public class CannonMovement : NetworkBehaviour, IControllable
     
     public void LoadCannon()
     {
-        ++_numCannonballsLoaded;
+        HasCannonballLoaded = true;
     }
 
     private void ShootCannon()
