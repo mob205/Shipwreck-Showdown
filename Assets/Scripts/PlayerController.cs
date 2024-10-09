@@ -11,7 +11,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private LayerMask _cannonballPickup;
     [SerializeField] private AudioEvent pickup;
     [SerializeField] private AudioEvent reload;
-    [SerializeField] private AudioEvent death;
+    [SerializeField] private AudioEvent deathAudio;
 
     [SerializeField] private SpriteRenderer _cannonballIndicator;
 
@@ -91,16 +91,19 @@ public class PlayerController : NetworkBehaviour
     private void OnDeath(Health health)
     {
         RpcOnDeath(transform.position);
-        NetworkServer.Destroy(gameObject);
+        _spriteRenderer.enabled = false;
+        enabled = false;
     }
 
     [ClientRpc]
     private void RpcOnDeath(Vector2 position)
     {
-        if(death)
+        if(deathAudio)
         {
-            death.PlayOneShot(position);
+            deathAudio.PlayOneShot(position);
         }
+        _spriteRenderer.enabled = false;
+        enabled = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
