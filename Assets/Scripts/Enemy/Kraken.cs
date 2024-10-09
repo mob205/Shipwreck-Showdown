@@ -254,6 +254,6 @@ public class Kraken : NetworkBehaviour
     {
         var bullet = Instantiate(bulletPrefab, pos, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = dir.normalized * bulletSpeed;
-        Destroy(bullet, bulletLifetime);
+        Destroy(bullet.gameObject, bulletLifetime);
     }
 }

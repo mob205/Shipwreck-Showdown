@@ -6,10 +6,13 @@ public class Goon : NetworkBehaviour {
     [SerializeField] private int damage;
 
     [SerializeField] private AudioEvent _deathAudio;
+    [SerializeField] private AudioEvent _damageAudio;
 
     private Rigidbody2D _rb;
     private PlayerController _targetPlayer;
     private Health _health;
+    private AudioSource _audioSource;
+    private SpriteRenderer _spriteRenderer;
 
     [SerializeField] private float damageCooldown = 1f; 
     private float damageTimer = 0f;
@@ -18,6 +21,8 @@ public class Goon : NetworkBehaviour {
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
         _health = GetComponent<Health>();
+        _audioSource = GetComponent<AudioSource>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -40,6 +45,11 @@ public class Goon : NetworkBehaviour {
     {
         ControlInteractor.OnPossessed.RemoveListener(OnNearbyPossession);
         RpcOnDeath(transform.position);
+        Invoke(nameof(CleanupGoon), 5);
+    }
+
+    private void CleanupGoon()
+    {
         NetworkServer.Destroy(gameObject);
     }
 
@@ -50,6 +60,7 @@ public class Goon : NetworkBehaviour {
         {
             _deathAudio.PlayOneShot(position);
         }
+        _spriteRenderer.enabled = false;
     }
     private void OnDamage(Health health, int amount, GameObject attacker)
     {
@@ -57,10 +68,21 @@ public class Goon : NetworkBehaviour {
         {
             _targetPlayer = player;
         }
+        RpcOnDamage();
+    }
+
+    [ClientRpc]
+    private void RpcOnDamage()
+    {
+        if(_damageAudio)
+        {
+            _damageAudio.Play(_audioSource);
+        }
     }
 
     // Function to update the enemy
     private void Update() {
+        if(_health.HasDied) { return; }
         // Only retarget to the closest non-captain player if there's not already a target
         if(_targetPlayer == null || _targetPlayer.GetComponent<Health>().HasDied)
         {

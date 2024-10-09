@@ -20,17 +20,33 @@ public class ShipMovement : MonoBehaviour, IControllable
     private Vector2 _frameInput;
     private Rigidbody2D _rb;
 
+    private ParticleSystem _trail;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _trail = GetComponentInChildren<ParticleSystem>();
     }
 
     private void FixedUpdate()
     {
-        if(_frameInput.y != 0)
+        if(_frameInput.y < 0) // Going backward
         {
-            _frameInput.y = Mathf.Sign(_frameInput.y);
+            if(_trail)
+            {
+                _trail.Stop();
+            }
+            _frameInput.y = -1;
         }
+        else if(_frameInput.y > 0) // Going forward
+        {
+            if(_trail)
+            {
+                _trail.Play();
+            }
+            _frameInput.y = 1;
+        }
+
         if(_frameInput.x != 0)
         {
             _frameInput.x = Mathf.Sign(_frameInput.x);

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5998601238471438741}
   - component: {fileID: -1885111172144196962}
   - component: {fileID: 3445359481243434621}
+  - component: {fileID: 4971985370855618467}
   m_Layer: 7
   m_Name: Goon
   m_TagString: Untagged
@@ -109,6 +110,7 @@ MonoBehaviour:
   speed: 1
   damage: 1
   _deathAudio: {fileID: 11400000, guid: db75786f554e2423488e41087048094a, type: 2}
+  _damageAudio: {fileID: 11400000, guid: 3293e25623b578f42bbea96c5659b864, type: 2}
   damageCooldown: 1.25
 --- !u!50 &2447062181881798529
 Rigidbody2D:
@@ -350,3 +352,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &4971985370855618467
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2229041110476019148}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39d325506b7d7f44bbc3153fad75b52d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

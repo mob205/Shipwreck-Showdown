@@ -152,7 +152,7 @@ MonoBehaviour:
     m_Bits: 64
   pickup: {fileID: 11400000, guid: bfcc9d4c1207e49b299ea7d94cfa4dc6, type: 2}
   reload: {fileID: 11400000, guid: 5e31d11737e484ab3ae88143f723c510, type: 2}
-  deathAudio: {fileID: 0}
+  deathAudio: {fileID: 11400000, guid: 49c99cfc938b04b678507add16405903, type: 2}
   _animatorControllers:
   - {fileID: 22100000, guid: 9c4aa1fcae55cf6468680cb830f27193, type: 2}
   - {fileID: 22100000, guid: eede55b6f881bf04386541a662f5db1b, type: 2}
