@@ -34,11 +34,15 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     private Vector2 _frameInput;
     private Rigidbody2D _rb;
     private AudioSource _source;
+    private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
 
     private void Awake() 
     {
         _rb = GetComponent<Rigidbody2D>();
         _source = GetComponent<AudioSource>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -56,6 +60,7 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     public void OnReleaseControl()
     {
         _frameInput = Vector2.zero;
+        CmdOnInputChange(Vector2.zero);
     }
 
     public void Fire()
@@ -108,5 +113,27 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     public void Move(Vector2 input)
     {
         _frameInput = input;
+        CmdOnInputChange(input);
+    }
+
+    [ClientRpc]
+    private void RpcOnInputChange(Vector2 input)
+    {
+        if (input.x < 0)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        else if (input.x > 0)
+        {
+            _spriteRenderer.flipX = false;
+        }
+        _animator.SetInteger("MoveX", Mathf.CeilToInt(input.x));
+        _animator.SetInteger("MoveY", Mathf.CeilToInt(input.y));
+    }
+
+    [Command]
+    private void CmdOnInputChange(Vector2 input)
+    {
+        RpcOnInputChange(input);
     }
 }

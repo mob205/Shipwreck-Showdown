@@ -24,7 +24,6 @@ public class PlayerController : NetworkBehaviour
     private ControlInteractor _usedInteractor;
     private AudioSource _source;
     private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
 
     private int _color;
 
@@ -37,7 +36,6 @@ public class PlayerController : NetworkBehaviour
         CurrentControllable = _defaultControllable;
         _defaultControllable.CameraAngle = GameObject.FindGameObjectWithTag("DefaultCam").transform;
         _source = GetComponent<AudioSource>();
-        _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         GetComponent<Health>().OnDeath.AddListener(OnDeath);
 
@@ -68,26 +66,7 @@ public class PlayerController : NetworkBehaviour
         //_animator.runtimeAnimatorController = _animatorControllers[color % _animatorControllers.Length];
     }
 
-    [ClientRpc]
-    private void RpcOnInputChange(Vector2 input)
-    {
-        if(input.x < 0)
-        {
-            _spriteRenderer.flipX = true;
-        }
-        else if(input.x > 0)
-        {
-            _spriteRenderer.flipX = false;
-        }
-        _animator.SetInteger("MoveX", Mathf.CeilToInt(input.x));
-        _animator.SetInteger("MoveY", Mathf.CeilToInt(input.y));
-    }
-
-    [Command]
-    private void CmdOnInputChange(Vector2 input)
-    {
-        RpcOnInputChange(input);
-    }
+    
 
     private void OnDeath(Health health)
     {
@@ -111,7 +90,6 @@ public class PlayerController : NetworkBehaviour
         if(!_allowInput) { return; }
         Vector2 input = context.ReadValue<Vector2>();
         CurrentControllable.Move(input);
-        CmdOnInputChange(input);
     }
     public void OnFire(InputAction.CallbackContext context)
     {

@@ -5,13 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Test Level Sameer.unity
-    guid: 0db03be91de8149b890c0f1fbc700a9c
-  - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 3fe8f2ff350e94464a5c586cc21de226
   - enabled: 1
     path: Assets/Scenes/Level.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 3fe8f2ff350e94464a5c586cc21de226
   m_configObjects: {}
