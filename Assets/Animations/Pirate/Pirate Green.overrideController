@@ -6,12 +6,12 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pirate Blue
+  m_Name: Pirate Green
   m_Controller: {fileID: 9100000, guid: b04aff567728a304ead617dbe9cddb4c, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: e0e6e9aff74969845af2f50ada37d7be, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 10537c7dc39ffaf47a2bc06cc46b2244, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e0e6e9aff74969845af2f50ada37d7be, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 8b8e8dd0d9bd7ab47b13d7a34a76bfee, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 0ac13aa87316bf54bb7a4d8aa8c986da, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8b8e8dd0d9bd7ab47b13d7a34a76bfee, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: ef8dcc5133a63934e952ece57888a580, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 634f57d2d64d6aa4186fca571423e128, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ef8dcc5133a63934e952ece57888a580, type: 2}

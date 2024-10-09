@@ -99,16 +99,17 @@ public class PlayerMovement : NetworkBehaviour, IControllable
     private void RpcSwingWeapon()
     {
         sword.Play(_source);
-        _swordIcon.enabled = true;
-        _swordRB.angularVelocity = _swingSpeed;
-        Invoke(nameof(DisableSwordIcon), 360f / _swingSpeed);
+        //_swordIcon.enabled = true;
+        //_swordRB.angularVelocity = _swingSpeed;
+        //Invoke(nameof(DisableSwordIcon), 360f / _swingSpeed);
+        _animator.SetTrigger("Attack");
     }
 
-    private void DisableSwordIcon()
-    {
-        _swordRB.angularVelocity = 0;
-        _swordIcon.enabled = false;
-    }
+    //private void DisableSwordIcon()
+    //{
+    //    _swordRB.angularVelocity = 0;
+    //    _swordIcon.enabled = false;
+    //}
 
     public void Move(Vector2 input)
     {

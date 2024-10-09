@@ -1,6 +1,8 @@
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
+using UnityEditor.Animations;
+using System.Runtime.CompilerServices;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -12,10 +14,13 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private AudioEvent pickup;
     [SerializeField] private AudioEvent reload;
     [SerializeField] private AudioEvent deathAudio;
+    [SerializeField] private AnimatorOverrideController[] _animatorControllers;
 
     [SerializeField] private SpriteRenderer _cannonballIndicator;
 
     private bool _allowInput = true;
+
+    [SyncVar(hook = nameof(OnColorChange))] private int _assignedColor;
 
     public bool IsCaptain { get; private set; }
     public IControllable CurrentControllable { get; private set; }
@@ -24,6 +29,7 @@ public class PlayerController : NetworkBehaviour
     private ControlInteractor _usedInteractor;
     private AudioSource _source;
     private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
 
     private int _color;
 
@@ -37,6 +43,8 @@ public class PlayerController : NetworkBehaviour
         _defaultControllable.CameraAngle = GameObject.FindGameObjectWithTag("DefaultCam").transform;
         _source = GetComponent<AudioSource>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+
         GetComponent<Health>().OnDeath.AddListener(OnDeath);
 
     }
@@ -56,17 +64,15 @@ public class PlayerController : NetworkBehaviour
     [Server]
     public void AssignColor(int color)
     {
-        RpcAssignColor(color);
+        _assignedColor = color;
     }
 
-    [ClientRpc]
-    private void RpcAssignColor(int color)
+    [Client]
+    private void OnColorChange(int oldColor, int color)
     {
-        Debug.Log($"{gameObject.name} assigned {color}");
-        //_animator.runtimeAnimatorController = _animatorControllers[color % _animatorControllers.Length];
+        Debug.Log(color % _animatorControllers.Length);
+        _animator.runtimeAnimatorController = _animatorControllers[color % _animatorControllers.Length];
     }
-
-    
 
     private void OnDeath(Health health)
     {

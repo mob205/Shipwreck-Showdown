@@ -153,6 +153,11 @@ MonoBehaviour:
   pickup: {fileID: 11400000, guid: bfcc9d4c1207e49b299ea7d94cfa4dc6, type: 2}
   reload: {fileID: 11400000, guid: 5e31d11737e484ab3ae88143f723c510, type: 2}
   deathAudio: {fileID: 0}
+  _animatorControllers:
+  - {fileID: 22100000, guid: 9c4aa1fcae55cf6468680cb830f27193, type: 2}
+  - {fileID: 22100000, guid: eede55b6f881bf04386541a662f5db1b, type: 2}
+  - {fileID: 22100000, guid: 1a074c63ce764504a94a4cfed37d3ec2, type: 2}
+  - {fileID: 22100000, guid: 6b9f38db75877434c971983a198f58c3, type: 2}
   _cannonballIndicator: {fileID: 6214460435450098011}
 --- !u!114 &6270317531912792441
 MonoBehaviour:
@@ -577,7 +582,7 @@ Animator:
   m_GameObject: {fileID: 4844725178673995766}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b04aff567728a304ead617dbe9cddb4c, type: 2}
+  m_Controller: {fileID: 22100000, guid: 9c4aa1fcae55cf6468680cb830f27193, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
