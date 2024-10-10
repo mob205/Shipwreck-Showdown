@@ -14,6 +14,8 @@ public class CannonMovement : NetworkBehaviour, IControllable
     [SerializeField] float _turnRate;
     [SerializeField] private float _angleClamp = 30;
 
+    [SerializeField] private SpriteRenderer _cannonballIndicator;
+
     //private int _numCannonballsLoaded = 0;
     public bool HasCannonballLoaded { get; private set; }
 
@@ -80,11 +82,19 @@ public class CannonMovement : NetworkBehaviour, IControllable
             ShootCannon();
         }
         _clip.Play(_source);
+        _cannonballIndicator.enabled = false;
     }
     
     public void LoadCannon()
     {
         HasCannonballLoaded = true;
+        RpcLoadCannon();
+    }
+
+    [ClientRpc]
+    private void RpcLoadCannon()
+    {
+        _cannonballIndicator.enabled = true;
     }
 
     private void ShootCannon()

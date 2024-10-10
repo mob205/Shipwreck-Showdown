@@ -16,5 +16,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6240e3b9dff22474ea1590aa1e7ba1f8, type: 3}
   MinPitch: 0.85
   MaxPitch: 1.15
-  MinVolume: 0.6
-  MaxVolume: 0.75
+  MinVolume: 0.8
+  MaxVolume: 0.85
+  OneShotAudioSource: {fileID: 0}

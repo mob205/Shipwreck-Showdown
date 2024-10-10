@@ -93,6 +93,7 @@ public class PlayerController : NetworkBehaviour
         _allowInput = false;
         _defaultControllable.OnReleaseControl();
         _rb.simulated = false;
+        _cannonballIndicator.enabled = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)

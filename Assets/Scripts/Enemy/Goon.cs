@@ -13,6 +13,7 @@ public class Goon : NetworkBehaviour {
     private Health _health;
     private AudioSource _audioSource;
     private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _boxCollider;
 
     [SerializeField] private float damageCooldown = 1f;
     private float damageTimer = 0f;
@@ -25,6 +26,7 @@ public class Goon : NetworkBehaviour {
         _health = GetComponent<Health>();
         _audioSource = GetComponent<AudioSource>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _boxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -66,6 +68,7 @@ public class Goon : NetworkBehaviour {
             _deathAudio.PlayOneShot(position);
         }
         _spriteRenderer.enabled = false;
+        _boxCollider.enabled = false;
     }
     private void OnDamage(Health health, int amount, GameObject attacker)
     {

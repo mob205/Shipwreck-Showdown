@@ -259,6 +259,7 @@ public class Kraken : NetworkBehaviour
             // Wait a bit before shooting the next bullet
             yield return new WaitForSeconds(0.1f);
         }
+        Debug.Log("Spiral attack done.");
         isAttacking = false;
     }
 
